@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\OutcomeController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UrusanController;
@@ -43,8 +44,16 @@ Route::middleware('auth')->group(function () {
         // Route::get('/master/urusan/create', 'create')->name('urusan.create');
         Route::post('/master/urusan/store', 'store')->name('urusan.store');
         Route::get('/master/edit/urusan/{id}', 'edit')->name('urusan.edit');
-        Route::post('/master/urusan/update', 'update')->name('urusan.update');
+        Route::post('/master/urusan/update/{id}', 'update')->name('urusan.update');
         Route::get('/master/urusan/delete/{id}', 'destroy')->name('urusan.destroy');
+    });
+
+    Route::controller(OutcomeController::class)->group(function () {
+        Route::get('/master/outcome', 'index')->name('outcome.index');
+        Route::post('/master/outcome/store', 'store')->name('outcome.store');
+        Route::get('/master/edit/outcome/{id}', 'edit')->name('outcome.edit');
+        Route::post('/master/outcome/update/{id}', 'update')->name('outcome.update');
+        Route::get('/master/outcome/delete/{id}', 'destroy')->name('outcome.destroy');
     });
 
     Route::controller(SupplierController::class)->group(function () {

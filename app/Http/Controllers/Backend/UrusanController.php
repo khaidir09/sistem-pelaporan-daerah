@@ -35,15 +35,20 @@ class UrusanController extends Controller
 
     public function edit($id)
     {
-        $matter = Matter::find($id);
-        return response()->json($matter);
+        $matter = Matter::findOrFail($id);
+        return view('urusan.edit', compact('matter'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
-        $matter_id = $request->matter_id;
+        $matter = Matter::findOrFail($id);
 
-        Matter::find($matter_id)->update([
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        $matter->update([
             'name' => $request->name,
         ]);
 
@@ -51,7 +56,7 @@ class UrusanController extends Controller
             'message' => 'Urusan berhasil diperbarui',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->route('urusan.index')->with($notification);
     }
 
     public function destroy($id)

@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="{{ route('urusan.create') }}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#standard-modal">Tambah Urusan</a>
+                     <a href="" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#standard-modal">Tambah Urusan</a>
                 </ol>
             </div>
         </div>
@@ -23,45 +23,38 @@
             <div class="col-12">
                 <div class="card">
 
-                    <div class="card-header">
-                         Semua Urusan
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Urusan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($matter as $key=> $item) 
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                    <a href="{{ route('urusan.edit',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+                                    <a href="{{ route('urusan.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
+                                        </td> 
+                                    </tr>
+                                    @endforeach 
+                                        
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-<div class="card-body">
-    <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
-        <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama Urusan</th>
-            <th>Aksi</th>
-        </tr>
-        </thead>
-        <tbody>
-           @foreach ($matter as $key=> $item) 
-            <tr>
-                <td>{{ $key+1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>
-                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#matter" id="{{ $item->id }}" onclick="edit(this.id)"> Edit</button>
-            {{-- <a href="{{ route('urusan.edit',$item->id) }}" class="btn btn-success btn-sm">Edit</a>   --}}
-            <a href="{{ route('urusan.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
-                </td> 
-            </tr>
-            @endforeach 
-                
-        </tbody>
-    </table>
-</div>
 
                 </div>
             </div>
         </div>
 
-
-     
-
     </div> <!-- container-fluid -->
-
 </div> <!-- content -->
 
 <!-- Default Modal -->
@@ -88,47 +81,16 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="matter" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="standard-modalLabel">Edit Urusan</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            
-                <div class="modal-body">
-                    <form action="{{ route('urusan.update') }}" method="post">
-                @csrf
-                    <input type="hidden" name="matter_id" id="matter_id">
-
-                    <div class="form-group mb-3 col-md-12">
-                        <label for="input1" class="form-label">Nama Urusan</label>
-                        <input type="text" name="name" class="form-control" id="urusan"> 
-                    </div>
-                            
-                </div>
-                <div class="modal-footer"> 
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script>
-    function edit(id){
-        $.ajax({
-            type: 'GET',
-            url: '/master/urusan/edit/'+id,
-            dataType: 'json',
-
-            success:function(data){
-                // console.log(data);
-                $('#urusan').val(data.name);
-                $('#matter_id').val(data.id);
-            }
-        })
-    }
-</script>
 @endsection
+
+@push('scripts')
+    <script>
+        $("#datatable").dataTable({
+            "columnDefs": [{
+                "sortable": false,
+                "targets": [2]
+            }],
+            "order": [[0, "asc"]]
+        });
+    </script>
+@endpush

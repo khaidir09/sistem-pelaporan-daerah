@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Matter extends Model
 {
     protected $guarded = [];
+
+    public function outcomes()
+    {
+        return $this->hasMany(Outcome::class);
+    }
 }
