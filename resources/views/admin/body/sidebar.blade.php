@@ -7,24 +7,24 @@
             <div class="logo-box">
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png')}}" alt="" height="22">
+                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-light.png')}}" alt="" height="24">
+                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="24">
                     </span>
                 </a>
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png')}}" alt="" height="22">
+                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-dark.png')}}" alt="" height="24">
+                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="24">
                     </span>
                 </a>
             </div>
 
  <ul id="side-menu">
-
+ 
     <li class="menu-title">Menu</li>
 
     <li>
@@ -33,9 +33,6 @@
             <span> Dashboard </span>
         </a>
     </li>
-
-
-    <li class="menu-title">Pages</li>
     <li class="{{ Request::is('master*') ? 'menuitem-active' : '' }}">
         <a href="#Master" data-bs-toggle="collapse" class="{{ Request::is('master*') ? '' : 'collapsed' }}" aria-expanded="{{ Request::is('master*') ? 'true' : 'false' }}">
             <i data-feather="users"></i>
@@ -46,6 +43,9 @@
             <ul class="nav-second-level">
                 <li class="{{ Request::is('master/urusan*') ? 'active' : '' }}">
                     <a href="{{ route('urusan.index') }}" class="tp-link">Urusan</a>
+                </li>
+                <li class="{{ Request::is('master/outcome*') ? 'active' : '' }}">
+                    <a href="{{ route('outcome.index') }}" class="tp-link">IKK Outcome</a>
                 </li>
             </ul>
         </div>
