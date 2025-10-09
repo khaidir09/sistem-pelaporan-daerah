@@ -26,14 +26,7 @@
 
                                 <div class="d-flex align-items-baseline mb-2">
                                     <div class="fs-22 mb-0 me-2 fw-semibold text-black">91.6K</div>
-                                    <div class="me-auto">
-                                        <span class="text-primary d-inline-flex align-items-center">
-                                            15%
-                                            <i data-feather="trending-up" class="ms-1" style="height: 22px; width: 22px;"></i>
-                                        </span>
-                                    </div>
                                 </div>
-                                <div id="website-visitors" class="apex-charts"></div>
                             </div>
                         </div>
                     </div>
@@ -47,14 +40,7 @@
 
                                 <div class="d-flex align-items-baseline mb-2">
                                     <div class="fs-22 mb-0 me-2 fw-semibold text-black">15%</div>
-                                    <div class="me-auto">
-                                        <span class="text-danger d-inline-flex align-items-center">
-                                            10%
-                                            <i data-feather="trending-down" class="ms-1" style="height: 22px; width: 22px;"></i>
-                                        </span>
-                                    </div>
                                 </div>
-                                <div id="conversion-visitors" class="apex-charts"></div>
                             </div>
                         </div>
                     </div>
@@ -68,14 +54,7 @@
 
                                 <div class="d-flex align-items-baseline mb-2">
                                     <div class="fs-22 mb-0 me-2 fw-semibold text-black">90 Sec</div>
-                                    <div class="me-auto">
-                                        <span class="text-success d-inline-flex align-items-center">
-                                            25%
-                                            <i data-feather="trending-up" class="ms-1" style="height: 22px; width: 22px;"></i>
-                                        </span>
-                                    </div>
                                 </div>
-                                <div id="session-visitors" class="apex-charts"></div>
                             </div>
                         </div>
                     </div>
@@ -89,14 +68,7 @@
 
                                 <div class="d-flex align-items-baseline mb-2">
                                     <div class="fs-22 mb-0 me-2 fw-semibold text-black">2,986</div>
-                                    <div class="me-auto">
-                                        <span class="text-success d-inline-flex align-items-center">
-                                            4%
-                                            <i data-feather="trending-up" class="ms-1" style="height: 22px; width: 22px;"></i>
-                                        </span>
-                                    </div>
                                 </div>
-                                <div id="active-users" class="apex-charts"></div>
                             </div>
                         </div>
                     </div>
