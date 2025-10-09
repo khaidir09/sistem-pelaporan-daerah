@@ -11,7 +11,7 @@ class OutcomeController extends Controller
 {
     public function index()
     {
-        $outcome = Outcome::latest()->get();
+        $outcome = Outcome::all();
         $matters = Matter::all();
         return view('outcome.index', compact('outcome', 'matters'));
     }

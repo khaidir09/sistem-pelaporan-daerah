@@ -10,7 +10,7 @@ class UrusanController extends Controller
 {
     public function index()
     {
-        $matter = Matter::latest()->get();
+        $matter = Matter::all();
         return view('urusan.index', compact('matter'));
     }
 
@@ -24,6 +24,7 @@ class UrusanController extends Controller
 
         Matter::create([
             'name' => $request->name,
+            'category' => $request->category,
         ]);
 
         $notification = array(
@@ -46,10 +47,12 @@ class UrusanController extends Controller
         // Validate the request data
         $request->validate([
             'name' => 'required|max:255',
+            'category' => 'required|in:Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar,Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar,Pilihan',
         ]);
 
         $matter->update([
             'name' => $request->name,
+            'category' => $request->category,
         ]);
 
         $notification = array(
