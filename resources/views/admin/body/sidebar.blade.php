@@ -47,6 +47,9 @@
                 <li class="{{ Request::is('master/outcome*') ? 'active' : '' }}">
                     <a href="{{ route('outcome.index') }}" class="tp-link">IKK Outcome</a>
                 </li>
+                <li class="{{ Request::is('master/skpd*') ? 'active' : '' }}">
+                    <a href="{{ route('skpd.index') }}" class="tp-link">SKPD</a>
+                </li>
             </ul>
         </div>
     </li>

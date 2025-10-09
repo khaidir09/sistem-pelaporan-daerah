@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\OutcomeController;
+use App\Http\Controllers\Backend\SkpdController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UrusanController;
@@ -54,6 +55,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/master/edit/outcome/{id}', 'edit')->name('outcome.edit');
         Route::post('/master/outcome/update/{id}', 'update')->name('outcome.update');
         Route::get('/master/outcome/delete/{id}', 'destroy')->name('outcome.destroy');
+    });
+
+    Route::controller(SkpdController::class)->group(function () {
+        Route::get('/master/skpd', 'index')->name('skpd.index');
+        Route::post('/master/skpd/store', 'store')->name('skpd.store');
+        Route::get('/master/edit/skpd/{id}', 'edit')->name('skpd.edit');
+        Route::post('/master/skpd/update/{id}', 'update')->name('skpd.update');
+        Route::get('/master/skpd/delete/{id}', 'destroy')->name('skpd.destroy');
     });
 
     Route::controller(SupplierController::class)->group(function () {
