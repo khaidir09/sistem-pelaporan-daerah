@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Matter;
+use App\Models\MatterCategory;
 
 class UrusanController extends Controller
 {
@@ -16,15 +17,22 @@ class UrusanController extends Controller
 
     public function create()
     {
-        return view('urusan.create');
+        $categories = MatterCategory::all();
+        return view('urusan.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'kode_urusan' => 'required',
+            'category_id' => 'required',
+        ]);
 
         Matter::create([
             'name' => $request->name,
-            'category' => $request->category,
+            'kode_urusan' => $request->kode_urusan,
+            'category_id' => $request->category_id,
         ]);
 
         $notification = array(
@@ -37,7 +45,8 @@ class UrusanController extends Controller
     public function edit($id)
     {
         $matter = Matter::findOrFail($id);
-        return view('urusan.edit', compact('matter'));
+        $categories = MatterCategory::all();
+        return view('urusan.edit', compact('matter', 'categories'));
     }
 
     public function update(Request $request, string $id)
@@ -47,12 +56,14 @@ class UrusanController extends Controller
         // Validate the request data
         $request->validate([
             'name' => 'required|max:255',
-            'category' => 'required|in:Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar,Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar,Pilihan',
+            'kode_urusan' => 'required',
+            'category_id' => 'required',
         ]);
 
         $matter->update([
             'name' => $request->name,
-            'category' => $request->category,
+            'kode_urusan' => $request->kode_urusan,
+            'category_id' => $request->category_id,
         ]);
 
         $notification = array(

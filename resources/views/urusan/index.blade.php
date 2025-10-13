@@ -29,6 +29,7 @@
                                 <thead>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Kode</th>
                                     <th>Nama Urusan</th>
                                     <th>Kategori Urusan</th>
                                     <th>Aksi</th>
@@ -38,8 +39,9 @@
                                 @foreach ($matter as $key=> $item) 
                                     <tr>
                                         <td>{{ $key+1 }}</td>
+                                        <td>{{ $item->kode_urusan }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->category }}</td>
+                                        <td>{{ $item->category->name }}</td>
                                         <td>
                                     <a href="{{ route('urusan.edit',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
                                     <a href="{{ route('urusan.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
@@ -76,21 +78,25 @@
                         <input type="text" class="form-control" name="name"   id="input1"> 
                     </div>
                     <div class="form-group mb-3 col-md-12">
+                        <label for="input1" class="form-label">Kode Urusan</label>
+                        <input type="text" class="form-control" name="kode_urusan"   id="input2"> 
+                    </div>
+                    <div class="form-group mb-3 col-md-12">
                         <label for="category" class="form-label">Kategori Urusan</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="category" id="category1" value="Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar" checked>
+                            <input class="form-check-input" type="radio" name="category_id" id="category1" value="1" checked>
                             <label class="form-check-label" for="category1">
                                 Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="category" id="category2" value="Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar">
+                            <input class="form-check-input" type="radio" name="category_id" id="category2" value="2">
                             <label class="form-check-label" for="category2">
                                 Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="category" id="category3" value="Urusan Pilihan">
+                            <input class="form-check-input" type="radio" name="category_id" id="category3" value="3">
                             <label class="form-check-label" for="category3">
                                 Urusan Pilihan
                             </label>

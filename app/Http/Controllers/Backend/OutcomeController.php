@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\IkkMaster;
 use App\Models\Matter;
 use Illuminate\Http\Request;
 use App\Models\Outcome;
@@ -11,22 +12,25 @@ class OutcomeController extends Controller
 {
     public function index()
     {
-        $outcome = Outcome::all();
-        $matters = Matter::all();
-        return view('outcome.index', compact('outcome', 'matters'));
+        $ikkMaster = IkkMaster::all();
+        return view('outcome.index', compact('ikkMaster'));
     }
 
     public function create()
     {
-        return view('outcome.create');
+        $matters = Matter::all();
+        return view('outcome.create', compact('matters'));
     }
 
     public function store(Request $request)
     {
 
-        Outcome::create([
-            'description' => $request->description,
+        IkkMaster::create([
             'matter_id' => $request->matter_id,
+            'urutan' => $request->urutan,
+            'ikk_outcome' => $request->ikk_outcome,
+            'definisi_pembilang' => $request->definisi_pembilang,
+            'definisi_penyebut' => $request->definisi_penyebut,
         ]);
 
         $notification = array(
@@ -38,24 +42,21 @@ class OutcomeController extends Controller
 
     public function edit($id)
     {
-        $outcome = Outcome::findOrFail($id);
+        $ikkMaster = IkkMaster::findOrFail($id);
         $matters = Matter::all();
-        return view('outcome.edit', compact('outcome', 'matters'));
+        return view('outcome.edit', compact('ikkMaster', 'matters'));
     }
 
     public function update(Request $request, string $id)
     {
-        $outcome = Outcome::findOrFail($id);
-
-        // Validate the request data
-        $request->validate([
-            'description' => 'required',
-            'matter_id' => 'required',
-        ]);
+        $outcome = IkkMaster::findOrFail($id);
 
         $outcome->update([
-            'description' => $request->description,
             'matter_id' => $request->matter_id,
+            'urutan' => $request->urutan,
+            'ikk_outcome' => $request->ikk_outcome,
+            'definisi_pembilang' => $request->definisi_pembilang,
+            'definisi_penyebut' => $request->definisi_penyebut,
         ]);
 
         $notification = array(

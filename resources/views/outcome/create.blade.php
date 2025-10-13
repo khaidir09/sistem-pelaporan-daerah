@@ -1,6 +1,5 @@
 @extends('admin.admin_master')
 @section('admin')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <div class="content">
 
@@ -9,13 +8,12 @@
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Tambah Urusan</h4>
+                <h4 class="fs-18 fw-semibold m-0">Tambah IKK Outcome</h4>
             </div>
 
             <div class="text-end">
-                <ol class="breadcrumb m-0 py-0">
-                    
-                    <li class="breadcrumb-item active">Tambah Urusan</li>
+                <ol class="breadcrumb m-0">
+                     <a href="{{ route('outcome.index') }}" class="btn btn-dark">Kembali</a>
                 </ol>
             </div>
         </div>
@@ -24,22 +22,41 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Tambah Urusan</h5>
-                    </div><!-- end card header -->
 
 <div class="card-body">
-    <form id="myForm" action="{{ route('urusan.store') }}" method="post" class="row g-3" enctype="multipart/form-data">
+    <form id="myForm" action="{{ route('outcome.store') }}" method="post" class="row g-3">
         @csrf
 
-        <div class="form-group col-md-4">
-            <label for="validationDefault01" class="form-label">Nama Urusan</label>
-            <input type="text" class="form-control" name="name"  > 
+        <div class="form-group col-md-6">
+            <label for="matter_id" class="form-label">Pilih Urusan</label>
+            <select name="matter_id" id="matter_id" class="form-control">
+                <option value="" selected>-- Pilih Urusan --</option>
+                @foreach ($matters as $matter)
+                    <option value="{{ $matter->id }}">{{ $matter->name }}</option>
+                @endforeach
+            </select>
         </div>
 
-        
- 
-            
+        <div class="form-group col-md-6">
+            <label for="validationDefault01" class="form-label">Urutan</label>
+            <input type="number" class="form-control" name="urutan"  > 
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="validationDefault01" class="form-label">IKK Outcome</label>
+            <input type="text" class="form-control" name="ikk_outcome"  > 
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="validationDefault01" class="form-label">Definisi Pembilang</label>
+            <input type="text" class="form-control" name="definisi_pembilang"  > 
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="validationDefault01" class="form-label">Definisi Penyebut</label>
+            <input type="text" class="form-control" name="definisi_penyebut"  > 
+        </div>
+
         <div class="col-12">
             <button class="btn btn-primary" type="submit">Save Change</button>
         </div>
@@ -57,7 +74,7 @@
 
 </div>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
@@ -86,7 +103,7 @@
         });
     });
     
-</script>
+</script> --}}
  
 
 @endsection

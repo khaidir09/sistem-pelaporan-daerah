@@ -8,7 +8,7 @@
 
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Edit Outcome</h4>
+                <h4 class="fs-18 fw-semibold m-0">Edit IKK Outcome</h4>
             </div>
 
             <div class="text-end">
@@ -24,22 +24,37 @@
                 <div class="card">
 
 <div class="card-body">
-    <form id="myForm" action="{{ route('outcome.update', $outcome->id) }}" method="post" class="row g-3">
+    <form id="myForm" action="{{ route('outcome.update', $ikkMaster->id) }}" method="post" class="row g-3">
         @csrf
 
-        <div class="form-group">
-            <label for="validationDefault01" class="form-label">Deskripsi Outcome</label>
-            <textarea name="description" id="description" cols="30" rows="10" class="form-control">{!! $outcome->description !!}</textarea>
-        </div>
-
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="validationDefault01" class="form-label">Urusan</label>
             <select name="matter_id" id="matter_id" class="form-select" aria-label="Default select example">
                 <option selected="">Pilih Urusan</option>
                 @foreach($matters as $mat) 
-                    <option value="{{ $mat->id }}" {{ $mat->id == $outcome->matter_id ? 'selected' : '' }}>{{ $mat->name }}</option>
+                    <option value="{{ $mat->id }}" {{ $mat->id == $ikkMaster->matter_id ? 'selected' : '' }}>{{ $mat->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="validationDefault02" class="form-label">Urutan</label>
+            <input type="number" class="form-control" name="urutan" value="{{ $ikkMaster->urutan }}"> 
+        </div>
+
+        <div class="form-group col-md-12">
+            <label for="validationDefault03" class="form-label">IKK Outcome</label>
+            <textarea name="ikk_outcome" id="ikk_outcome" cols="30" rows="10" class="form-control">{!! $ikkMaster->ikk_outcome !!}</textarea>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="validationDefault04" class="form-label">Definisi Pembilang</label>
+            <input type="text" class="form-control" name="definisi_pembilang" value="{{ $ikkMaster->definisi_pembilang }}"> 
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="validationDefault05" class="form-label">Definisi Penyebut</label>
+            <input type="text" class="form-control" name="definisi_penyebut" value="{{ $ikkMaster->definisi_penyebut }}"> 
         </div>
  
             

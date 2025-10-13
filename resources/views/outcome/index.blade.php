@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#standard-modal">Tambah Outcome</a>
+                     <a href="{{ route('outcome.create') }}" class="btn btn-secondary">Tambah Outcome</a>
                 </ol>
             </div>
         </div>
@@ -29,17 +29,21 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Deskripsi Outcome</th>
                                 <th>Urusan</th>
+                                <th>Deskripsi Outcome</th>
+                                <th>Rumus Pembilang</th>
+                                <th>Rumus Penyebut</th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($outcome as $key=> $item) 
+                            @foreach ($ikkMaster as $key=> $item) 
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>{{ $item->description }}</td>
+                                    <td>{{ $item->matter->category->id }}.{{ $item->matter->kode_urusan }}.{{ $item->urutan }}</td>
                                     <td>{{ $item->matter->name }}</td>
+                                    <td>{{ $item->ikk_outcome }}</td>
+                                    <td>{{ $item->definisi_pembilang }}</td>
+                                    <td>{{ $item->definisi_penyebut }}</td>
                                     <td>
                                         <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>  
                                         <a href="{{ route('outcome.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
@@ -57,40 +61,6 @@
 
     </div> <!-- container-fluid -->
 </div> <!-- content -->
-
-<!-- Default Modal -->
-<div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="standard-modalLabel">Outcome</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <form action="{{ route('outcome.store') }}" method="post">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group mb-3 col-md-12">
-                        <label for="input1" class="form-label">Deskripsi Outcome</label>
-                        <textarea name="description" id="input1" cols="30" rows="10" class="form-control"></textarea>
-                    </div> 
-                    <div class="form-group mb-3 col-md-12">
-                        <label for="matter_id" class="form-label">Pilih Urusan</label>
-                        <select name="matter_id" id="matter_id" class="form-control">
-                            <option value="" selected disabled>-- Pilih Urusan --</option>
-                            @foreach ($matters as $matter)
-                                <option value="{{ $matter->id }}">{{ $matter->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer"> 
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')

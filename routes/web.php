@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\LaporanController;
 use App\Http\Controllers\Backend\OutcomeController;
 use App\Http\Controllers\Backend\SkpdController;
 use App\Http\Controllers\Backend\SupplierController;
@@ -51,6 +52,7 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(OutcomeController::class)->group(function () {
         Route::get('/master/outcome', 'index')->name('outcome.index');
+        Route::get('/master/outcome/create', 'create')->name('outcome.create');
         Route::post('/master/outcome/store', 'store')->name('outcome.store');
         Route::get('/master/outcome/edit/{id}', 'edit')->name('outcome.edit');
         Route::post('/master/outcome/update/{id}', 'update')->name('outcome.update');
@@ -63,6 +65,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/master/edit/skpd/{id}', 'edit')->name('skpd.edit');
         Route::post('/master/skpd/update/{id}', 'update')->name('skpd.update');
         Route::get('/master/skpd/delete/{id}', 'destroy')->name('skpd.destroy');
+    });
+
+    Route::controller(LaporanController::class)->group(function () {
+        Route::get('/laporan/ikk', 'index')->name('laporan.index');
+        Route::get('/laporan/ikk/create/{id}', 'create')->name('laporan.create');
+        Route::post('/laporan/ikk/store', 'store')->name('laporan.store');
+        Route::get('/laporan/edit/ikk/{id}', 'edit')->name('laporan.edit');
+        Route::post('/laporan/ikk/update/{id}', 'update')->name('laporan.update');
+        Route::get('/laporan/ikk/delete/{id}', 'destroy')->name('laporan.destroy');
     });
 
     Route::controller(SupplierController::class)->group(function () {

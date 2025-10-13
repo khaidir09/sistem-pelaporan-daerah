@@ -32,21 +32,25 @@
             <input type="text" name="name" class="form-control" value="{{ $matter->name }}">
         </div>
         <div class="form-group">
+            <label for="validationDefault02" class="form-label">Kode Urusan</label>
+            <input type="text" name="kode_urusan" class="form-control" value="{{ $matter->kode_urusan }}">
+        </div>
+        <div class="form-group">
             <label for="category" class="form-label">Kategori Urusan</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="category1" value="Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar" {{ $matter->category == 'Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar' ? 'checked' : '' }}>
+                <input class="form-check-input" type="radio" name="category_id" id="category1" value="1" {{ $matter->category_id == 1 ? 'checked' : '' }}>
                 <label class="form-check-label" for="category1">
                     Urusan Pemerintahan Wajib Berkaitan Pelayanan Dasar
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="category2" value="Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar" {{ $matter->category == 'Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar' ? 'checked' : '' }}>
+                <input class="form-check-input" type="radio" name="category_id" id="category2" value="2" {{ $matter->category_id == 2 ? 'checked' : '' }}>
                 <label class="form-check-label" for="category2">
                     Urusan Pemerintahan Wajib Tidak Berkaitan Pelayanan Dasar
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="category3" value="Urusan Pilihan" {{ $matter->category == 'Urusan Pilihan' ? 'checked' : '' }}>
+                <input class="form-check-input" type="radio" name="category_id" id="category3" value="3" {{ $matter->category_id == 3 ? 'checked' : '' }}>
                 <label class="form-check-label" for="category3">
                     Urusan Pilihan
                 </label>

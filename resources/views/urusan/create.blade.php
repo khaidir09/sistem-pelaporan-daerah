@@ -37,6 +37,11 @@
             <input type="text" class="form-control" name="name"  > 
         </div>
 
+        <div class="form-group col-md-4">
+            <label for="validationDefault02" class="form-label">Kode Urusan</label>
+            <input type="text" class="form-control" name="kode_urusan"> 
+        </div>
+
         
  
             
