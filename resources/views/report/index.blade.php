@@ -42,10 +42,14 @@
                                     <td class="text-center">{{ $item->matter->category_id }}.{{ $item->matter->kode_urusan }}.{{ $item->urutan }}</td>
                                     <td>{{ $item->ikk_outcome }}</td>
                                     <td>
-                                        @if ($item->reviu != null)
-                                            <span class="badge bg-primary">{{ $item->reviu }}</span>
+                                        @if ($item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first())
+                                            @if ($item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first()->reviu != null)
+                                                <span class="badge bg-primary">{{ $item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first()->reviu }}</span>
+                                            @else
+                                                <span class="badge bg-info">Menunggu</span>
+                                            @endif
                                         @else
-                                            <span class="badge bg-info">Menunggu</span>
+                                            <span class="badge bg-danger">Belum Lapor</span>
                                         @endif
                                     </td>
                                     <td>

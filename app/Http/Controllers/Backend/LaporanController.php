@@ -49,6 +49,18 @@ class LaporanController extends Controller
         //     );
         //     return redirect()->back()->with($notification);
         // }
+        $item = IkkMaster::find($request->ikk_master_id);
+
+        $fileName = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            // 2. Buat nama file yang unik (contoh: 178456982.pdf)
+            $fileName = $item->matter->category_id . '.' . $item->matter->kode_urusan . '.' . $item->urutan . '_' . $user->agency->name . '_' . $year . '.' . $file->getClientOriginalExtension();
+
+            // 3. Pindahkan file ke public/upload/laporan
+            $file->move(public_path('upload/laporan'), $fileName);
+        }
 
         IkkReport::create([
             'ikk_master_id' => $request->ikk_master_id,
@@ -58,7 +70,7 @@ class LaporanController extends Controller
             'nilai_pembilang' => $request->nilai_pembilang,
             'nilai_penyebut' => $request->nilai_penyebut,
             'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
-            'file' => $request->file('file') ? $request->file('file')->store('report') : null,
+            'file' => $fileName,
         ]);
 
         $notification = array(
@@ -88,8 +100,25 @@ class LaporanController extends Controller
             'nilai_pembilang' => $request->nilai_pembilang,
             'nilai_penyebut' => $request->nilai_penyebut,
             'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
-            'file' => $request->file('file') ? $request->file('file')->store('report') : null,
         ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            // 2. Buat nama file yang unik (contoh: 178456982.pdf)
+            $fileName = $report->ikkMaster->matter->category_id . '.' . $report->ikkMaster->matter->kode_urusan . '.' . $report->ikkMaster->urutan . '_' . $user->agency->name . '_' . $year . '.' . $file->getClientOriginalExtension();
+
+            // 3. Pindahkan file ke public/upload/laporan
+            $file->move(public_path('upload/laporan'), $fileName);
+
+            // Hapus file lama jika ada
+            if ($report->file && file_exists(public_path('upload/laporan/' . $report->file))) {
+                unlink(public_path('upload/laporan/' . $report->file));
+            }
+
+            // Update nama file di database
+            $report->update(['file' => $fileName]);
+        }
 
         $notification = array(
             'message' => 'SKPD berhasil diperbarui',

@@ -22,7 +22,9 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
-
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">{{ $report->ikkMaster->ikk_outcome }}</h5>
+                    </div>
 <div class="card-body">
     <form id="myForm" action="{{ route('laporan.update', $report->id) }}" method="post" class="row g-3">
         @csrf
@@ -36,7 +38,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label for="nilai_pembilang" class="form-label">{{ $report->definisi_pembilang }}</label>
+            <label for="nilai_pembilang" class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
             <input type="number" class="form-control" name="nilai_pembilang" value="{{ $report->nilai_pembilang }}"> 
             @error('nilai_pembilang')
                 <p class="text-danger">{{ $message }}</p>
@@ -44,7 +46,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label for="nilai_penyebut" class="form-label">{{ $report->definisi_penyebut }}</label>
+            <label for="nilai_penyebut" class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
             <input type="number" class="form-control" name="nilai_penyebut" value="{{ $report->nilai_penyebut }}"> 
             @error('nilai_penyebut')
                 <p class="text-danger">{{ $message }}</p>
@@ -57,6 +59,20 @@
             @error('file')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
+        </div>
+
+        <div class="form-group col-md-12">
+            @if($report->file)
+                <div class="mb-3">
+                    <label class="form-label">File Saat Ini:</label>
+                    <a href="{{ asset('upload/laporan/' . $report->file) }}" target="_blank" class="btn btn-info btn-sm">
+                        <i class="mdi mdi-eye"></i> Lihat File
+                    </a>
+                    <span class="ms-2">{{ $report->file }}</span>
+                </div>
+            @else
+                <p class="text-muted">Tidak ada file yang diunggah.</p>
+            @endif
         </div>
 
         <div class="col-12">
