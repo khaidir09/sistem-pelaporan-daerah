@@ -9,14 +9,13 @@ use App\Http\Controllers\Backend\SkpdController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UrusanController;
+use App\Http\Controllers\Pengawas\LaporanPengawasController;
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -74,6 +73,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/laporan/edit/ikk/{id}', 'edit')->name('laporan.edit');
         Route::post('/laporan/ikk/update/{id}', 'update')->name('laporan.update');
         Route::get('/laporan/ikk/delete/{id}', 'destroy')->name('laporan.destroy');
+    });
+
+    Route::controller(LaporanPengawasController::class)->group(function () {
+        Route::get('/dashboard')->name('laporan-pengawas.index');
+        Route::get('/pengawas/laporan/detail/ikk/{id}', 'show')->name('laporan-pengawas.show');
+        Route::post('/pengawas/laporan/ikk/update/{id}', 'update')->name('laporan-pengawas.update');
     });
 
     Route::controller(SupplierController::class)->group(function () {

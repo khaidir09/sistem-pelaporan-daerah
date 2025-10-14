@@ -12,4 +12,9 @@ class IkkReport extends Model
     {
         return $this->belongsTo(IkkMaster::class, 'ikk_master_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
