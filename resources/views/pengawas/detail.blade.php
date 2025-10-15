@@ -27,9 +27,9 @@
                     </div>
 
                     <div class="card-body">
-                        <form id="myForm" action="{{ route('laporan.store') }}" method="post" class="row g-3" enctype="multipart/form-data">
+                        <form id="myForm" action="" method="post" class="row g-3">
                             @csrf
-                            <input type="hidden" name="ikk_master_id" value="{{ $report->id }}">
+                            <input type="hidden" name="id" value="{{ $report->id }}">
                             <div class="form-group col-md-12">
                                 <label for="ikk_output" class="form-label">IKK Output</label>
                                 <textarea class="form-control" name="ikk_output" id="ikk_output" cols="30" rows="5" disabled readonly>{!! $report->ikk_output !!}</textarea>
