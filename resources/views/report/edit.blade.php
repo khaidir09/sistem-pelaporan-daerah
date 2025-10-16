@@ -18,6 +18,24 @@
             </div>
         </div>
 
+        @if ($report->status === 'Revisi')
+            <div class="alert alert-danger" role="alert">
+                <strong>Catatan Perbaikan:</strong> {{ $report->keterangan }}
+            </div>
+        @elseif ($report->status === 'Dikirim Ulang')
+            <div class="alert alert-info" role="alert">
+                Laporan ini telah dikirim ulang dan menunggu validasi.
+            </div>
+        @elseif ($report->status === 'Disetujui')
+            <div class="alert alert-success" role="alert">
+                Laporan ini telah disetujui.
+            </div>
+        @else
+            <div class="alert alert-warning" role="alert">
+                Laporan ini menunggu validasi.
+            </div>
+        @endif
+
         <!-- Form Validation -->
         <div class="row">
             <div class="col-xl-12">
@@ -75,9 +93,15 @@
             @endif
         </div>
 
-        <div class="col-12">
-            <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
-        </div>
+        @if ($report->status === 'Revisi' || $report->status === 'Dikirim Ulang' || $report->status === 'Dikirim')
+            <div class="col-12 text-end">
+                <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+            </div>
+        @else
+            <div class="col-12 text-end">
+                <button class="btn btn-dark" type="submit" disabled>Laporan tidak dapat diedit karena statusnya sudah "{{ $report->status }}".</button>
+            </div>
+        @endif
     </form>
 </div> <!-- end card-body -->
                 </div> <!-- end card-->

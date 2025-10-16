@@ -7,6 +7,7 @@ use App\Models\IkkMaster;
 use App\Models\IkkReport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ReportHistory;
 use Illuminate\Support\Facades\Auth;
 
 class LaporanController extends Controller
@@ -62,7 +63,7 @@ class LaporanController extends Controller
             $file->move(public_path('upload/laporan'), $fileName);
         }
 
-        IkkReport::create([
+        $report = IkkReport::create([
             'ikk_master_id' => $request->ikk_master_id,
             'user_id' => $user->id,
             'ikk_output' => $request->ikk_output,
@@ -71,6 +72,21 @@ class LaporanController extends Controller
             'nilai_penyebut' => $request->nilai_penyebut,
             'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
             'file' => $fileName,
+            'status' => 'Dikirim'
+        ]);
+
+        $dataSnapshot = $report->toArray();
+        $dataSnapshot['ikk_output'] = $request->ikk_output;
+        $dataSnapshot['nilai_pembilang'] = $request->nilai_pembilang;
+        $dataSnapshot['nilai_penyebut'] = $request->nilai_penyebut;
+        $dataSnapshot['capaian'] = $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0;
+
+        ReportHistory::create([
+            'ikk_report_id' => $report->id,
+            'user_id' => $user->id,
+            'status' => 'Dikirim',
+            'keterangan' => null,
+            'data_snapshot' => json_encode($dataSnapshot),
         ]);
 
         $notification = array(
@@ -100,6 +116,7 @@ class LaporanController extends Controller
             'nilai_pembilang' => $request->nilai_pembilang,
             'nilai_penyebut' => $request->nilai_penyebut,
             'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
+            'status' => 'Dikirim Ulang'
         ]);
 
         if ($request->hasFile('file')) {
@@ -120,8 +137,22 @@ class LaporanController extends Controller
             $report->update(['file' => $fileName]);
         }
 
+        $dataSnapshot = $report->toArray();
+        $dataSnapshot['ikk_output'] = $request->ikk_output;
+        $dataSnapshot['nilai_pembilang'] = $request->nilai_pembilang;
+        $dataSnapshot['nilai_penyebut'] = $request->nilai_penyebut;
+        $dataSnapshot['capaian'] = $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0;
+
+        ReportHistory::create([
+            'ikk_report_id' => $report->id,
+            'user_id' => $user->id,
+            'status' => 'Dikirim Ulang',
+            'keterangan' => null,
+            'data_snapshot' => json_encode($dataSnapshot),
+        ]);
+
         $notification = array(
-            'message' => 'SKPD berhasil diperbarui',
+            'message' => 'Laporan IKK berhasil diperbarui',
             'alert-type' => 'success'
         );
         return redirect()->route('laporan.index')->with($notification);
@@ -132,7 +163,7 @@ class LaporanController extends Controller
         IkkReport::find($id)->delete();
 
         $notification = array(
-            'message' => 'SKPD berhasil dihapus',
+            'message' => 'Laporan IKK berhasil dihapus',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

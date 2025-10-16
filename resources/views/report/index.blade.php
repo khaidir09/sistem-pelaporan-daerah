@@ -36,15 +36,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($ikkMaster as $key=> $item)
+                            @foreach ($ikkMaster as $item)
+                                @php
+                                    // 1. Cari laporan yang sesuai dan simpan ke dalam variabel $report
+                                    $report = $item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first();
+                                @endphp
                                 <tr>
                                     <td>{{ $item->matter->name }}</td>
                                     <td class="text-center">{{ $item->matter->category_id }}.{{ $item->matter->kode_urusan }}.{{ $item->urutan }}</td>
                                     <td>{{ $item->ikk_outcome }}</td>
                                     <td>
-                                        @if ($item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first())
-                                            @if ($item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first()->reviu != null)
-                                                <span class="badge bg-primary">{{ $item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first()->reviu }}</span>
+                                        @if ($report)
+                                            @if ($report->reviu != null)
+                                                <span class="badge bg-primary">{{ $report->reviu }}</span>
                                             @else
                                                 <span class="badge bg-info">Menunggu</span>
                                             @endif
@@ -53,12 +57,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if (!$item->ikkReports->where('user_id', Auth::user()->id)->where('year', date('Y'))->first())
+                                        @if (!$report)
+                                            {{-- Tombol "Buat" tetap menggunakan ID dari IkkMaster --}}
                                             <a href="{{ route('laporan.create', $item->id) }}" class="btn btn-secondary btn-sm">Buat</a>
                                         @else
-                                            <a href="{{ route('laporan.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>
+                                            {{-- 2. Tombol "Edit" sekarang menggunakan ID dari laporan yang ditemukan ($report->id) --}}
+                                            <a href="{{ route('laporan.edit', $report->id) }}" class="btn btn-success btn-sm">Edit</a>
                                         @endif
-                                        {{-- <a href="{{ route('skpd.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a> --}}
                                     </td>
                                 </tr>
                                 @endforeach

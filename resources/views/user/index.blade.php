@@ -17,57 +17,85 @@
             <div class="col-md-12 col-xl-12">
                 <div class="row g-3">
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-14 mb-1">Website Traffic</div>
+                                    <div class="fs-14 mb-1">Urusan</div>
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
-                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">91.6K</div>
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $totalUrusan }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-14 mb-1">Conversion rate</div>
+                                    <div class="fs-14 mb-1">Indikator</div>
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
-                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">15%</div>
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $totalIndikator }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-14 mb-1">Session duration</div>
+                                    <div class="fs-14 mb-1">Laporan Dibuat</div>
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
-                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">90 Sec</div>
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $laporanDibuat }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-xl-3">
+                    <div class="col-md-6 col-xl-2">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-14 mb-1">Active Users</div>
+                                    <div class="fs-14 mb-1">Menunggu Validasi</div>
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
-                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">2,986</div>
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $laporanMenunggu }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-14 mb-1">Laporan Disetujui</div>
+                                </div>
+
+                                <div class="d-flex align-items-baseline mb-2">
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $laporanDisetujui }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-14 mb-1">Perlu Revisi</div>
+                                </div>
+
+                                <div class="d-flex align-items-baseline mb-2">
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $laporanRevisi }}</div>
                                 </div>
                             </div>
                         </div>
