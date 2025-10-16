@@ -66,8 +66,8 @@
         
  
             
-        <div class="col-12">
-            <button class="btn btn-primary" type="submit">Save Change</button>
+        <div class="col-12 text-end">
+            <button class="btn btn-primary" type="submit">Kirim Laporan</button>
         </div>
     </form>
 </div> <!-- end card-body -->

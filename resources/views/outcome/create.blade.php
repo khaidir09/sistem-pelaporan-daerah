@@ -57,8 +57,8 @@
             <input type="text" class="form-control" name="definisi_penyebut"  > 
         </div>
 
-        <div class="col-12">
-            <button class="btn btn-primary" type="submit">Save Change</button>
+        <div class="col-12 text-end">
+            <button class="btn btn-primary" type="submit">Simpan</button>
         </div>
     </form>
 </div> <!-- end card-body -->

@@ -34,7 +34,7 @@
         </a>
     </li>
     @if (Auth::user()->hasRole('User'))
-        <li>
+        <li class="{{ Request::is('laporan*') ? 'menuitem-active' : '' }}">
             <a href="{{ route('laporan.index') }}" class="tp-link">
                 <i data-feather="home"></i>
                 <span> Laporan </span>

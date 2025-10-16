@@ -58,7 +58,7 @@
         </div>
  
             
-        <div class="col-12">
+        <div class="col-12 text-end">
             <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
         </div>
     </form>
