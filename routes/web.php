@@ -76,9 +76,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(LaporanPengawasController::class)->group(function () {
-        Route::get('/dashboard')->name('laporan-pengawas.index');
         Route::get('/pengawas/laporan/detail/ikk/{id}', 'show')->name('laporan-pengawas.show');
-        Route::post('/pengawas/laporan/ikk/update/{id}', 'update')->name('laporan-pengawas.update');
+        Route::post('/pengawas/laporan/ikk/update/{id}', 'storeReviu')->name('laporan-pengawas.update');
     });
 
     Route::controller(SupplierController::class)->group(function () {

@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-14 mb-1">Sudah Divalidasi</div>
+                                    <div class="fs-14 mb-1">Sudah Disetujui</div>
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="d-flex align-items-baseline mb-2">
-                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">2,986</div>
+                                    <div class="fs-22 mb-0 me-2 fw-semibold text-black">{{ $kirimUlang }}</div>
                                 </div>
                             </div>
                         </div>
@@ -91,6 +91,7 @@
                                 <th>SKPD</th>
                                 <th>Urusan</th>
                                 <th>Outcome</th>
+                                <th>Status</th>
                                 <th>Tanggal Kirim</th>
                                 <th>Aksi</th>
                             </tr>
@@ -101,6 +102,15 @@
                                     <td>{{ $item->user->agency->name }}</td>
                                     <td>{{ $item->ikkMaster->matter->name }}</td>
                                     <td><span class="text-primary">({{ $item->ikkMaster->matter->category_id }}.{{ $item->ikkMaster->matter->kode_urusan }}.{{ $item->ikkMaster->urutan }})</span> {{ $item->ikkMaster->ikk_outcome }}</td>
+                                    <td>
+                                        @if ($item->status === 'Revisi')
+                                            <span class="badge bg-danger">Revisi</span>
+                                        @elseif ($item->status === 'Dikirim Ulang')
+                                            <span class="badge bg-info">Dikirim Ulang</span>
+                                        @else
+                                            <span class="badge bg-warning">Menunggu Validasi</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                     <td>
                                         <a href="{{ route('laporan-pengawas.show', $item->id) }}" class="btn btn-secondary btn-sm">Validasi Sekarang</a>

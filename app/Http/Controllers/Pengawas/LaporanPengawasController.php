@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Models\IkkMaster;
 use App\Models\IkkReport;
 use Illuminate\Http\Request;
+use App\Models\ReportHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,45 +31,29 @@ class LaporanPengawasController extends Controller
         return view('pengawas.detail', compact('report'));
     }
 
-    public function update(Request $request, string $id)
+    public function storeReviu(Request $request, string $id)
     {
         $report = IkkReport::findOrFail($id);
-        $user = Auth::user();
-        $year = date('Y');
 
         $report->update([
-            'ikk_master_id' => $report->ikk_master_id,
-            'user_id' => $user->id,
-            'ikk_output' => $request->ikk_output,
-            'year' => $year,
-            'nilai_pembilang' => $request->nilai_pembilang,
-            'nilai_penyebut' => $request->nilai_penyebut,
-            'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
+            'reviu' => $request->input('action') === 'Setuju' ? 'Disetujui' : 'Revisi',
+            'status' => $request->input('action') === 'Setuju' ? 'Disetujui' : 'Revisi',
+            'keterangan' => $request->input('keterangan'),
+            // 'updated_at' => now(),
         ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-
-            // 2. Buat nama file yang unik (contoh: 178456982.pdf)
-            $fileName = $report->ikkMaster->matter->category_id . '.' . $report->ikkMaster->matter->kode_urusan . '.' . $report->ikkMaster->urutan . '_' . $user->agency->name . '_' . $year . '.' . $file->getClientOriginalExtension();
-
-            // 3. Pindahkan file ke public/upload/laporan
-            $file->move(public_path('upload/laporan'), $fileName);
-
-            // Hapus file lama jika ada
-            if ($report->file && file_exists(public_path('upload/laporan/' . $report->file))) {
-                unlink(public_path('upload/laporan/' . $report->file));
-            }
-
-            // Update nama file di database
-            $report->update(['file' => $fileName]);
-        }
+        ReportHistory::create([
+            'ikk_report_id' => $report->id,
+            'user_id' => Auth::id(),
+            'status' => $request->input('action') === 'Setuju' ? 'Disetujui' : 'Revisi',
+            'keterangan' => $request->input('keterangan'),
+        ]);
 
         $notification = array(
-            'message' => 'SKPD berhasil diperbarui',
+            'message' => 'Laporan berhasil direviu',
             'alert-type' => 'success'
         );
-        return redirect()->route('laporan.index')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function destroy($id)
