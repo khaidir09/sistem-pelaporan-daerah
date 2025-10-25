@@ -10,6 +10,10 @@
             <div class="flex-grow-1">
                 <h4 class="fs-18 fw-semibold m-0">Dashboard SKPD</h4>
             </div>
+
+            <div class="text-end">
+                <span class="badge badge-outline-primary fs-12">{{ $user->agency->name }}</span>
+            </div>
         </div>
 
         <!-- start row -->

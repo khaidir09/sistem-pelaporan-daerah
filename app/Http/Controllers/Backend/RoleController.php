@@ -232,7 +232,7 @@ class RoleController extends Controller
 
     public function AllAdmin()
     {
-        $alladmin = User::where('role', 'admin')->latest()->get();
+        $alladmin = User::where('role', 'user')->latest()->get();
         return view('admin.backend.pages.admin.all_admin', compact('alladmin'));
     }
     // End Method

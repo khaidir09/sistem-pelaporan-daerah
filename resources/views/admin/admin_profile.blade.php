@@ -8,14 +8,7 @@
     <div class="container-xxl">
         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
             <div class="flex-grow-1">
-                <h4 class="fs-18 fw-semibold m-0">Profile</h4>
-            </div>
-
-            <div class="text-end">
-                <ol class="breadcrumb m-0 py-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Components</a></li>
-                    <li class="breadcrumb-item active">Profile</li>
-                </ol>
+                <h4 class="fs-18 fw-semibold m-0">Profil</h4>
             </div>
         </div>
 
@@ -50,7 +43,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col">                      
-                        <h4 class="card-title mb-0">Personal Information</h4>                      
+                        <h4 class="card-title mb-0">Informasi Pribadi</h4>                      
                     </div><!--end col-->                                                       
                 </div>
             </div>
@@ -61,7 +54,7 @@
      @csrf
                 
                 <div class="form-group mb-3 row">
-                    <label class="form-label">Name</label>
+                    <label class="form-label">Nama</label>
                     <div class="col-lg-12 col-xl-12">
            <input class="form-control" type="text" name="name" value="{{ $profileData->name }}">
                     </div>
@@ -75,21 +68,21 @@
                 </div>
 
                 <div class="form-group mb-3 row">
-                    <label class="form-label">Phone</label>
+                    <label class="form-label">Nomor HP/WA</label>
                     <div class="col-lg-12 col-xl-12">
            <input class="form-control" type="text" name="phone" value="{{ $profileData->phone }}">
                     </div>
                 </div>
 
                 <div class="form-group mb-3 row">
-                    <label class="form-label">Address</label>
+                    <label class="form-label">Alamat</label>
                     <div class="col-lg-12 col-xl-12">
        <textarea name="address" class="form-control" placeholder="Add your address">{{ $profileData->address }}</textarea>
                     </div>
                 </div>
 
        <div class="form-group mb-3 row">
-            <label class="form-label">Profile Image</label>
+            <label class="form-label">Foto Profil</label>
             <div class="col-lg-12 col-xl-12">
     <input class="form-control" type="file" name="photo" id="image"  >
             </div>
@@ -103,7 +96,7 @@
         </div> 
 
         <div class="col-lg-12 col-xl-12">
-            <button type="submit" class="btn btn-primary">Save Changes</button> 
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button> 
         </div>
  
     </form>
@@ -118,7 +111,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col">                      
-                        <h4 class="card-title mb-0">Change Password</h4>                      
+                        <h4 class="card-title mb-0">Ganti Password</h4>                      
                     </div><!--end col-->                                                       
                 </div>
             </div>
@@ -128,7 +121,7 @@
       @csrf
 
         <div class="form-group mb-3 row">
-            <label class="form-label">Old Password</label>
+            <label class="form-label">Password Lama</label>
             <div class="col-lg-12 col-xl-12">
       <input class="form-control @error('old_password') is-invalid          
       @enderror" name="old_password" id="old_password" type="password" placeholder="Old Password">
@@ -138,7 +131,7 @@
             </div>
         </div>
         <div class="form-group mb-3 row">
-            <label class="form-label">New Password</label>
+            <label class="form-label">Password Baru</label>
             <div class="col-lg-12 col-xl-12">
   <input class="form-control @error('new_password') is-invalid          
                 @enderror" name="new_password" id="new_password" type="password" placeholder="New Password">
@@ -148,7 +141,7 @@
                       </div>
         </div>
         <div class="form-group mb-3 row">
-            <label class="form-label">Confirm Password</label>
+            <label class="form-label">Konfirmasi Password</label>
             <div class="col-lg-12 col-xl-12">
                 <input class="form-control" name="new_password_confirmation" type="password" id="new_password_confirmation" placeholder="New Password Confirmation "> 
                  </div>
@@ -156,8 +149,8 @@
 
         <div class="form-group row">
             <div class="col-lg-12 col-xl-12">
-                <button type="submit" class="btn btn-primary">Change Password</button>
-                <button type="button" class="btn btn-danger">Cancel</button>
+                <button type="submit" class="btn btn-primary">Ganti Password</button>
+                <button type="button" class="btn btn-danger">Batal</button>
             </div>
         </div>
     </form>
