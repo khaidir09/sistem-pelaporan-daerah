@@ -25,7 +25,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                        <table id="datatable" class="table table-bordered dt-responsive table-responsive dt-nowrap">
                             <thead>
                             <tr>
                                 <th>No.</th>

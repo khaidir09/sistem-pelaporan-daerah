@@ -57,7 +57,7 @@
 
         <div class="form-group col-md-6">
             <label for="nilai_pembilang" class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
-            <input type="number" class="form-control" name="nilai_pembilang" value="{{ $report->nilai_pembilang }}"> 
+            <input type="number" class="form-control" name="nilai_pembilang" value="{{ (float)$report->nilai_pembilang }}"> 
             @error('nilai_pembilang')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
@@ -65,7 +65,7 @@
 
         <div class="form-group col-md-6">
             <label for="nilai_penyebut" class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
-            <input type="number" class="form-control" name="nilai_penyebut" value="{{ $report->nilai_penyebut }}"> 
+            <input type="number" class="form-control" name="nilai_penyebut" value="{{ (float)$report->nilai_penyebut }}"> 
             @error('nilai_penyebut')
                 <p class="text-danger">{{ $message }}</p>
             @enderror

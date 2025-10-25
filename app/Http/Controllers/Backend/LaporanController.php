@@ -14,15 +14,17 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        $reports = IkkReport::latest()->get();
-
         $user = Auth::user();
-        $skpd = $user->agency;
-        $relevantMatterIds = $skpd->matters()->pluck('matters.id');
-        $ikkMaster = IkkMaster::whereHas('matter', function ($query) use ($relevantMatterIds) {
-            $query->whereIn('id', $relevantMatterIds);
-        })->get();
-        return view('report.index', compact('reports', 'ikkMaster'));
+        $ikkMaster = []; // Inisialisasi variabel
+
+        if ($user->hasRole('User')) {
+            $ikkMaster = IkkMaster::whereHas('matter.agencies', function ($query) use ($user) {
+                $query->where('agencies.id', $user->agency_id);
+            })->get();
+        } else {
+            $ikkMaster = IkkMaster::with('matter.agencies')->get();
+        }
+        return view('report.index', compact('ikkMaster'));
     }
 
     public function create($id)
