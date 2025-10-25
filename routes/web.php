@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(LaporanPengawasController::class)->group(function () {
-        Route::get('/pengawas/laporan/detail/ikk/{id}', 'show')->name('laporan-pengawas.show');
+        Route::get('/laporan/detail/ikk/{id}', 'show')->name('laporan-pengawas.show');
         Route::post('/pengawas/laporan/ikk/update/{id}', 'storeReviu')->name('laporan-pengawas.update');
     });
 
@@ -120,10 +120,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::controller(RoleController::class)->group(function () {
-        Route::get('/all/admin', 'AllAdmin')->name('all.admin');
-        Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+        Route::get('/master/pengguna', 'AllAdmin')->name('all.admin');
+        Route::get('/master/pengguna/create', 'AddAdmin')->name('add.admin');
         Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
-        Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
+        Route::get('/master/pengguna/edit/{id}', 'EditAdmin')->name('edit.admin');
         Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
         Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
     });
