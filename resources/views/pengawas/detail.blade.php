@@ -76,18 +76,18 @@
 
                         <div class="form-group mb-3">
                             <label class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
-                            <input type="text" class="form-control" value="{{ number_format($report->nilai_pembilang, 0, ',', '.') }}" disabled readonly>
+                            <input type="text" class="form-control" value="{{ (float)$report->nilai_pembilang }}" disabled readonly>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
-                            <input type="text" class="form-control" value="{{ number_format($report->nilai_penyebut, 0, ',', '.') }}" disabled readonly>
+                            <input type="text" class="form-control" value="{{ (float)$report->nilai_penyebut }}" disabled readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="capaian" class="form-label">Capaian</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" value="{{ number_format($report->capaian, 2, ',', '.') }}" disabled readonly>
+                                <input type="text" class="form-control" value="{{ (float)$report->capaian }}" disabled readonly>
                                 <span class="input-group-text">%</span>
                             </div>
                         </div>
@@ -118,24 +118,26 @@
 
 </div>
 
-{{-- Panel Aksi Validasi Floating --}}
-<div class="validation-panel">
-    {{-- Form ini akan mengirimkan data validasi ke controller --}}
-    <form id="validationForm" action="{{ route('laporan-pengawas.update', $report->id) }}" method="POST" class="d-flex w-100 align-items-center" style="gap: 15px;">
-        @csrf
-        {{-- <input type="hidden" name="report_id" value="{{ $report->id }}"> --}}
-        
-        <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Klik tombol Minta Perbaikan, lalu tuliskan catatan perbaikan di sini..." rows="1" disabled></textarea>
-        
-        {{-- Tombol Aksi --}}
-        <button id="requestRevisionBtn" type="submit" name="action" value="Revisi" class="btn btn-warning flex-shrink-0">
-            🔄 Minta Perbaikan
-        </button>
-        <button id="approveBtn" type="submit" name="action" value="Setuju" class="btn btn-success flex-shrink-0">
-            ✅ Setujui Laporan
-        </button>
-    </form>
-</div>
+@if (Auth::user()->hasRole('APIP'))
+    {{-- Panel Aksi Validasi Floating --}}
+    <div class="validation-panel">
+        {{-- Form ini akan mengirimkan data validasi ke controller --}}
+        <form id="validationForm" action="{{ route('laporan-pengawas.update', $report->id) }}" method="POST" class="d-flex w-100 align-items-center" style="gap: 15px;">
+            @csrf
+            {{-- <input type="hidden" name="report_id" value="{{ $report->id }}"> --}}
+            
+            <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Klik tombol Minta Perbaikan, lalu tuliskan catatan perbaikan di sini..." rows="1" disabled></textarea>
+            
+            {{-- Tombol Aksi --}}
+            <button id="requestRevisionBtn" type="submit" name="action" value="Revisi" class="btn btn-warning flex-shrink-0">
+                🔄 Minta Perbaikan
+            </button>
+            <button id="approveBtn" type="submit" name="action" value="Setuju" class="btn btn-success flex-shrink-0">
+                ✅ Setujui Laporan
+            </button>
+        </form>
+    </div>
+@endif
 
 {{-- Script untuk interaktivitas panel --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -85,7 +85,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                        <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                        <table id="datatable" class="table table-bordered dt-responsive table-responsive">
                             <thead>
                             <tr>
                                 <th>SKPD</th>
@@ -99,7 +99,7 @@
                             <tbody>
                             @foreach ($data as $key=> $item) 
                                 <tr>
-                                    <td>{{ $item->user->agency->name }}</td>
+                                    <th>{{ $item->user->agency->name }}</th>
                                     <td>{{ $item->ikkMaster->matter->name }}</td>
                                     <td><span class="text-primary">({{ $item->ikkMaster->matter->category_id }}.{{ $item->ikkMaster->matter->kode_urusan }}.{{ $item->ikkMaster->urutan }})</span> {{ $item->ikkMaster->ikk_outcome }}</td>
                                     <td>
@@ -264,7 +264,7 @@
         $("#datatable").dataTable({
             "columnDefs": [{
                 "sortable": false,
-                "targets": [4]
+                "targets": [5]
             }],
             "order": [[0, "asc"]]
         });
