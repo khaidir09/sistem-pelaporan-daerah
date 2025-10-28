@@ -16,6 +16,13 @@
             </div>
         </div>
 
+        {{-- Informasi Sistem Pelaporan sedang dikunci --}}
+        @if ($reportLockStatus->value == 'Locked')
+            <div class="alert alert-danger" role="alert">
+                <strong>Pemberitahuan:</strong> Sistem pelaporan sedang dikunci. Anda tidak dapat membuat atau mengedit laporan saat ini.
+            </div>
+        @endif
+
         <!-- start row -->
         <div class="row">
             <div class="col-md-12 col-xl-12">
@@ -108,129 +115,42 @@
             </div> <!-- end sales -->
         </div> <!-- end row -->
 
-        <!-- Start Monthly Sales -->
-        {{-- <div class="row">
-            <div class="col-md-6 col-xl-8">
-                <div class="card">
-                    
-                    <div class="card-header">
-                        <div class="d-flex align-items-center">
-                            <div class="border border-dark rounded-2 me-2 widget-icons-sections">
-                                <i data-feather="bar-chart" class="widgets-icons"></i>
-                            </div>
-                            <h5 class="card-title mb-0">Monthly Sales</h5>
-                        </div>
+        {{-- Riwayat Laporan SKPD --}}
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card"> 
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Riwayat Laporan SKPD Tahun {{ date('Y') }}</h5>
                     </div>
-
                     <div class="card-body">
-                        <div id="monthly-sales" class="apex-charts"></div>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-4">
-                <div class="card overflow-hidden">
-
-                    <div class="card-header">
-                        <div class="d-flex align-items-center">
-                            <div class="border border-dark rounded-2 me-2 widget-icons-sections">
-                                <i data-feather="tablet" class="widgets-icons"></i>
-                            </div>
-                            <h5 class="card-title mb-0">Best Traffic Source</h5>
-                        </div>
-                    </div>
-
-                    <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-traffic mb-0">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>IKK Outcome</th>
+                                        <th>Status Laporan</th>
+                                        <th>Tanggal Dibuat</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <thead>
+                                    @foreach ($skpdHistoryReport as $key => $report)
                                         <tr>
-                                            <th>Network</th>
-                                            <th colspan="2">Visitors</th>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $report->ikkReport->ikkMaster->ikk_outcome }}</td>
+                                            <td>{{ $report->status }} @if ($report->keterangan != null)
+                                                ({{ $report->keterangan }})
+                                            @endif</td>
+                                            <td>{{ $report->created_at->locale('id')->translatedFormat('d F Y, H:i') }}</td>
                                         </tr>
-                                    </thead>
-
-                                    <tr>
-                                        <td>Instagram</td>
-                                        <td>3,550</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-danger" style="width: 80.0%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Facebook</td>
-                                        <td>1,245</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-primary" style="width: 55.9%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Twitter</td>
-                                        <td>1,798</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-secondary" style="width: 67.0%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>YouTube</td>
-                                        <td>986</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-success" style="width: 38.72%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Pinterest</td>
-                                        <td>854</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-danger" style="width: 45.08%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Linkedin</td>
-                                        <td>650</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-warning" style="width: 68.0%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Nextdoor</td>
-                                        <td>420</td>
-                                        <td class="w-50">
-                                            <div class="progress progress-md mt-0">
-                                                <div class="progress-bar bg-info" style="width: 56.4%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div> --}}
-        <!-- End Monthly Sales -->
+        </div>
 
          
 

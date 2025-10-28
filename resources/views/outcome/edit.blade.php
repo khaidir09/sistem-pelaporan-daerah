@@ -39,7 +39,7 @@
 
         <div class="form-group col-md-6">
             <label for="validationDefault02" class="form-label">Urutan</label>
-            <input type="number" class="form-control" name="urutan" value="{{ $ikkMaster->urutan }}"> 
+            <input type="text" class="form-control" name="urutan" value="{{ $ikkMaster->urutan }}"> 
         </div>
 
         <div class="form-group col-md-12">
@@ -51,7 +51,7 @@
             <label for="validationDefault04" class="form-label">Definisi Pembilang</label>
             <input type="text" class="form-control" name="definisi_pembilang" value="{{ $ikkMaster->definisi_pembilang }}"> 
         </div>
-
+ 
         <div class="form-group col-md-6">
             <label for="validationDefault05" class="form-label">Definisi Penyebut</label>
             <input type="text" class="form-control" name="definisi_penyebut" value="{{ $ikkMaster->definisi_penyebut }}"> 

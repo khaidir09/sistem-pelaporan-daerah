@@ -35,14 +35,22 @@
                 </li>
                 <li class="{{ Request::is('laporan*') ? 'menuitem-active' : '' }}">
                     <a href="{{ route('laporan.index') }}" class="tp-link">
-                        <i data-feather="home"></i>
+                        <i data-feather="file-text"></i>
                         <span> Laporan </span>
                     </a>
                 </li>
+                @if (Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('APIP'))
+                    <li class="{{ Request::is('riwayat-penilaian') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('riwayat-penilaian') }}" class="tp-link">
+                            <i data-feather="activity"></i>
+                            <span> Riwayat Penilaian</span>
+                        </a>
+                    </li>
+                @endif
                 @if (Auth::user()->hasRole('Super Admin'))
                     <li class="{{ Request::is('master*') ? 'menuitem-active' : '' }}">
                         <a href="#Master" data-bs-toggle="collapse" class="{{ Request::is('master*') ? '' : 'collapsed' }}" aria-expanded="{{ Request::is('master*') ? 'true' : 'false' }}">
-                            <i data-feather="users"></i>
+                            <i data-feather="database"></i>
                             <span>Data Master</span>
                             <span class="menu-arrow"></span>
                         </a>
@@ -59,6 +67,9 @@
                                 </li>
                                 <li class="{{ Request::is('master/pengguna*') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('all.admin') }}" class="tp-link">Manajemen Pengguna</a>
+                                </li>
+                                <li class="{{ Request::is('setting/system*') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('system.setting.index') }}" class="tp-link">Pengaturan Sistem</a>
                                 </li>
                             </ul>
                         </div>

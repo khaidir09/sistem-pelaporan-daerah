@@ -12,7 +12,7 @@ class OutcomeController extends Controller
 {
     public function index()
     {
-        $ikkMaster = IkkMaster::all();
+        $ikkMaster = IkkMaster::orderBy('id', 'asc')->get();
         return view('outcome.index', compact('ikkMaster'));
     }
 

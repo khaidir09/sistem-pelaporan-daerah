@@ -30,6 +30,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama SKPD</th>
+                                <th>Banyak Urusan</th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>
@@ -38,6 +39,7 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ count($item->matters) }}</td>
                                     <td>
                                         <a href="{{ route('skpd.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>
                                         <a href="{{ route('skpd.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>

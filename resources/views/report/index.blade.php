@@ -73,8 +73,8 @@
                                 <table id="datatable" class="table table-bordered table-striped dt-responsive table-responsive">
                                     <thead>
                                     <tr>
-                                        <th>Urusan</th>
                                         <th class="text-center" >No. IKK</th>
+                                        <th>Urusan</th>
                                         <th>Outcome</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -87,8 +87,8 @@
                                             $report = $item->ikkReports->where('year', date('Y'))->first();
                                         @endphp
                                         <tr>
-                                            <td>{{ $item->matter->name }}</td>
                                             <td class="text-center">{{ $item->matter->category_id }}.{{ $item->matter->kode_urusan }}.{{ $item->urutan }}</td>
+                                            <td>{{ $item->matter->name }}</td>
                                             <td>{{ $item->ikk_outcome }}</td>
                                             <td>
                                                 @if ($report)
@@ -106,7 +106,7 @@
                                                     {{-- Tombol "Buat" tetap menggunakan ID dari IkkMaster --}}
                                                     <a href="{{ route('laporan-pengawas.show', $report->id) }}" class="btn btn-success btn-sm">Lihat</a>
                                                 @else
-                                                    <a href="#" class="btn btn-dark btn-sm">Lihat</a>
+                                                    <button class="btn btn-success btn-sm" disabled>Lihat</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -132,7 +132,7 @@
                 "sortable": false,
                 "targets": [2,4]
             }],
-            "order": [[0, "desc"]]
+            "order": [[0, "asc"]]
         });
     </script>
 @endpush

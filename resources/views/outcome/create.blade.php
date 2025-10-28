@@ -39,7 +39,7 @@
 
         <div class="form-group col-md-6">
             <label for="validationDefault01" class="form-label">Urutan</label>
-            <input type="number" class="form-control" name="urutan"  > 
+            <input type="text" class="form-control" name="urutan"  > 
         </div>
 
         <div class="form-group col-md-12">

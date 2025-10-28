@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Agency;
 use App\Models\User;
+use App\Models\Agency;
+use App\Models\Matter;
 use App\Models\IkkMaster;
 use App\Models\IkkReport;
-use App\Models\Matter;
+use App\Models\ReportHistory;
 use Illuminate\Http\Request;
+use App\Models\SystemSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -58,7 +60,7 @@ class DashboardController extends Controller
         $dimintaPerbaikan = IkkReport::where('status', 'Revisi')->count();
         $kirimUlang = IkkReport::where('status', 'Dikirim Ulang')->count();
 
-        $data = IkkReport::whereIn('status', ['Dikirim', 'Revisi', 'Dikirim Ulang'])->latest()->get();
+        $data = IkkReport::whereIn('status', ['Dikirim', 'Dikirim Ulang'])->latest()->get();
 
         if ($user->hasRole('Super Admin')) {
             return view('admin.index', compact('jumlahUrusan', 'jumlahSkpd', 'dibuat', 'disetujui', 'revisi', 'menunggu', 'data'));
@@ -74,7 +76,13 @@ class DashboardController extends Controller
                 });
             })->count();
 
-            return view('user.index', compact('user', 'totalUrusan', 'totalIndikator', 'laporanDibuat', 'laporanDisetujui', 'laporanRevisi', 'laporanMenunggu'));
+            $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
+
+            $skpdHistoryReport = ReportHistory::whereHas('ikkReport', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->latest()->take(5)->get();
+
+            return view('user.index', compact('user', 'totalUrusan', 'totalIndikator', 'laporanDibuat', 'laporanDisetujui', 'laporanRevisi', 'laporanMenunggu', 'reportLockStatus', 'skpdHistoryReport'));
         } elseif ($user->hasRole('APIP')) {
             return view('pengawas.index', compact('perluValidasi', 'sudahValidasi', 'dimintaPerbaikan', 'kirimUlang', 'data'));
         } else {

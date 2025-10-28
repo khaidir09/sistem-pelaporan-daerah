@@ -28,6 +28,7 @@
                         <table id="datatable" class="table table-bordered dt-responsive table-responsive dt-nowrap">
                             <thead>
                             <tr>
+                                <th>#</th>
                                 <th>No.</th>
                                 <th>Urusan</th>
                                 <th>Deskripsi Outcome</th>
@@ -39,6 +40,7 @@
                             <tbody>
                             @foreach ($ikkMaster as $key=> $item) 
                                 <tr>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $item->matter->category->id }}.{{ $item->matter->kode_urusan }}.{{ $item->urutan }}</td>
                                     <td>{{ $item->matter->name }}</td>
                                     <td>{{ $item->ikk_outcome }}</td>
@@ -70,7 +72,6 @@
                 "sortable": false,
                 "targets": [3]
             }],
-            "order": [[0, "asc"]]
         });
     </script>
 @endpush
