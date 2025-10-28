@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SkpdController;
+use App\Http\Controllers\Backend\UrusanController;
 use App\Http\Controllers\Backend\LaporanController;
 use App\Http\Controllers\Backend\OutcomeController;
-use App\Http\Controllers\Backend\SkpdController;
 use App\Http\Controllers\Backend\SupplierController;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\UrusanController;
+use App\Http\Controllers\Backend\SystemSettingController;
 use App\Http\Controllers\Pengawas\LaporanPengawasController;
 
 Route::get('/', function () {
@@ -16,6 +17,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/riwayat-penilaian', [App\Http\Controllers\Backend\LaporanController::class, 'history'])->middleware(['auth'])->name('riwayat-penilaian');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,6 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
     Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
+    Route::controller(SystemSettingController::class)->group(function () {
+        Route::get('/setting/system', 'index')->name('system.setting.index');
+        Route::post('/setting/system/update', 'update')->name('system.setting.update');
+    });
 });
 
 

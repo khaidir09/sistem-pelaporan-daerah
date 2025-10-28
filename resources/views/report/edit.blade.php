@@ -30,6 +30,10 @@
             <div class="alert alert-success" role="alert">
                 Laporan ini telah disetujui.
             </div>
+        @elseif ($reportLockStatus->value == 'Locked')
+            <div class="alert alert-danger" role="alert">
+                Sistem pelaporan sedang dikunci. Anda tidak dapat mengedit laporan saat ini.
+            </div>
         @else
             <div class="alert alert-warning" role="alert">
                 Laporan ini menunggu validasi.
@@ -93,13 +97,17 @@
             @endif
         </div>
 
-        @if ($report->status === 'Revisi' || $report->status === 'Dikirim Ulang' || $report->status === 'Dikirim')
+        @if ($report->status === 'Disetujui')
             <div class="col-12 text-end">
-                <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                <button class="btn btn-primary" type="submit" disabled>Simpan Perubahan</button>
+            </div>
+        @elseif ($reportLockStatus->value == 'Locked')
+            <div class="col-12 text-end">
+                <button class="btn btn-danger" type="submit" disabled>Sistem sedang dikunci.</button>
             </div>
         @else
             <div class="col-12 text-end">
-                <button class="btn btn-dark" type="submit" disabled>Laporan tidak dapat diedit karena statusnya sudah "{{ $report->status }}".</button>
+                <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
             </div>
         @endif
     </form>

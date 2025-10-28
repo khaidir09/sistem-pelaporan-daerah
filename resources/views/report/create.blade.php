@@ -39,21 +39,92 @@
             @enderror
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="nilai_pembilang" class="form-label">{{ $item->definisi_pembilang }}</label>
-            <input type="number" class="form-control" name="nilai_pembilang" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_pembilang') }}"> 
-            @error('nilai_pembilang')
-                <p class="text-danger">{{ $message }}</p>
-            @enderror
-        </div>
+        @if ($item->calculation_type == 'formula')
+            <div class="form-group col-md-6">
+                <label for="nilai_pembilang" class="form-label">{{ $item->definisi_pembilang }}</label>
+                <input type="number" class="form-control" name="nilai_pembilang" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_pembilang') }}"> 
+                @error('nilai_pembilang')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="form-group col-md-6">
-            <label for="nilai_penyebut" class="form-label">{{ $item->definisi_penyebut }}</label>
-            <input type="number" class="form-control" name="nilai_penyebut" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_penyebut') }}"> 
-            @error('nilai_penyebut')
-                <p class="text-danger">{{ $message }}</p>
-            @enderror
-        </div>
+            <div class="form-group col-md-6">
+                <label for="nilai_penyebut" class="form-label">{{ $item->definisi_penyebut }}</label>
+                <input type="number" class="form-control" name="nilai_penyebut" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_penyebut') }}"> 
+                @error('nilai_penyebut')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+        @elseif ($item->calculation_type == 'checklist')
+            <div class="form-group col-md-3">
+                <label for="category" class="form-label">Apakah ada daftar asset tetap?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category1" value="Ya">
+                    <label class="form-check-label" for="category1">
+                        Ya
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category2" value="Tidak">
+                    <label class="form-check-label" for="category2">
+                        Tidak
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="category" class="form-label">Apakah ada manual untuk menyusun daftar asset tetap?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category1" value="Ya">
+                    <label class="form-check-label" for="category1">
+                        Ya
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category2" value="Tidak">
+                    <label class="form-check-label" for="category2">
+                        Tidak
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="category" class="form-label">Apakah ada proses inventarisasi asset tahunan?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category1" value="Ya">
+                    <label class="form-check-label" for="category1">
+                        Ya
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category2" value="Tidak">
+                    <label class="form-check-label" for="category2">
+                        Tidak
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="category" class="form-label">Apakah nilai asset tercantum dalam laporan anggaran?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category1" value="Ya">
+                    <label class="form-check-label" for="category1">
+                        Ya
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category_id" id="category2" value="Tidak">
+                    <label class="form-check-label" for="category2">
+                        Tidak
+                    </label>
+                </div>
+            </div>
+        @else
+            <div class="form-group col-md-6">
+                <label for="nilai_penyebut" class="form-label">Capaian</label>
+                <input type="number" class="form-control" name="nilai_penyebut" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_penyebut') }}"> 
+                @error('nilai_penyebut')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+        @endif
 
         <div class="form-group col-md-12">
             <label for="file" class="form-label">File Bukti</label>

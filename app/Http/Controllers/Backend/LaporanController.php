@@ -6,8 +6,9 @@ use App\Models\Report;
 use App\Models\IkkMaster;
 use App\Models\IkkReport;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\ReportHistory;
+use App\Models\SystemSetting;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LaporanController extends Controller
@@ -29,29 +30,30 @@ class LaporanController extends Controller
 
     public function create($id)
     {
+        $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
+        if ($reportLockStatus && $reportLockStatus->value == 'Locked') {
+            $notification = array(
+                'message' => 'Akses laporan sedang dikunci',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
         $item = IkkMaster::findOrFail($id);
         return view('report.create', compact('item'));
     }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        // ]);
+        $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
+        if ($reportLockStatus && $reportLockStatus->value == 'Locked') {
+            $notification = array(
+                'message' => 'Akses laporan sedang dikunci',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
         $user = Auth::user();
         $year = date('Y');
-        // $existingReport = IkkReport::where('ikk_master_id', $request->ikk_master_id)
-        //     ->where('user_id', $request->user_id)
-        //     ->where('year', $year)
-        //     ->first();
-
-        // if ($existingReport) {
-        //     $notification = array(
-        //         'message' => 'Laporan IKK untuk tahun ini sudah ada',
-        //         'alert-type' => 'error'
-        //     );
-        //     return redirect()->back()->with($notification);
-        // }
         $item = IkkMaster::find($request->ikk_master_id);
 
         $fileName = null;
@@ -100,12 +102,21 @@ class LaporanController extends Controller
 
     public function edit($id)
     {
+        $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
         $report = IkkReport::findOrFail($id);
-        return view('report.edit', compact('report'));
+        return view('report.edit', compact('report', 'reportLockStatus'));
     }
 
     public function update(Request $request, string $id)
     {
+        $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
+        if ($reportLockStatus && $reportLockStatus->value == 'Locked') {
+            $notification = array(
+                'message' => 'Akses laporan sedang dikunci',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
         $report = IkkReport::findOrFail($id);
         $user = Auth::user();
         $year = date('Y');
@@ -160,8 +171,27 @@ class LaporanController extends Controller
         return redirect()->route('laporan.index')->with($notification);
     }
 
+    public function history()
+    {
+        $user = Auth::user();
+        if ($user->hasRole('APIP')) {
+            $historyReport = ReportHistory::where('user_id', $user->id)->latest()->get();
+        } else {
+            $historyReport = ReportHistory::with('ikkReport')->whereIn('status', ['Disetujui', 'Revisi'])->latest()->get();
+        }
+        return view('report.history', compact('historyReport'));
+    }
+
     public function destroy($id)
     {
+        $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
+        if ($reportLockStatus && $reportLockStatus->value == 'Locked') {
+            $notification = array(
+                'message' => 'Akses laporan sedang dikunci',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }
         IkkReport::find($id)->delete();
 
         $notification = array(
