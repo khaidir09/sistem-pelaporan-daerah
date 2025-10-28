@@ -24,14 +24,21 @@ class OutcomeController extends Controller
 
     public function store(Request $request)
     {
-
-        IkkMaster::create([
+        $data = [
             'matter_id' => $request->matter_id,
             'urutan' => $request->urutan,
             'ikk_outcome' => $request->ikk_outcome,
-            'definisi_pembilang' => $request->definisi_pembilang,
-            'definisi_penyebut' => $request->definisi_penyebut,
-        ]);
+            'calculation_type' => $request->calculation_type,
+        ];
+
+        if ($request->calculation_type === 'formula') {
+            $data['definisi_pembilang'] = $request->definisi_pembilang;
+            $data['definisi_penyebut'] = $request->definisi_penyebut;
+        } elseif ($request->calculation_type === 'checklist') {
+            $data['calculation_meta'] = json_encode(['questions' => $request->calculation_meta['questions']]);
+        }
+
+        IkkMaster::create($data);
 
         $notification = array(
             'message' => 'Outcome berhasil ditambahkan',
@@ -51,13 +58,24 @@ class OutcomeController extends Controller
     {
         $outcome = IkkMaster::findOrFail($id);
 
-        $outcome->update([
+        $data = [
             'matter_id' => $request->matter_id,
             'urutan' => $request->urutan,
             'ikk_outcome' => $request->ikk_outcome,
-            'definisi_pembilang' => $request->definisi_pembilang,
-            'definisi_penyebut' => $request->definisi_penyebut,
-        ]);
+            'calculation_type' => $request->calculation_type,
+            'definisi_pembilang' => null,
+            'definisi_penyebut' => null,
+            'calculation_meta' => null,
+        ];
+
+        if ($request->calculation_type === 'formula') {
+            $data['definisi_pembilang'] = $request->definisi_pembilang;
+            $data['definisi_penyebut'] = $request->definisi_penyebut;
+        } elseif ($request->calculation_type === 'checklist') {
+            $data['calculation_meta'] = json_encode(['questions' => $request->calculation_meta['questions']]);
+        }
+
+        $outcome->update($data);
 
         $notification = array(
             'message' => 'Outcome berhasil diperbarui',
