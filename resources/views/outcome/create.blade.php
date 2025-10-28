@@ -47,6 +47,15 @@
             <input type="text" class="form-control" name="ikk_outcome"  > 
         </div>
 
+        <div class="form-group col-md-12">
+            <label for="calculation_type" class="form-label">Tipe Kalkulasi</label>
+            <select name="calculation_type" id="calculation_type" class="form-control">
+                <option value="formula">Formula</option>
+                <option value="checklist">Checklist</option>
+                <option value="direct_input">Input Langsung</option>
+            </select>
+        </div>
+
         <div class="form-group col-md-6">
             <label for="validationDefault01" class="form-label">Definisi Pembilang</label>
             <input type="text" class="form-control" name="definisi_pembilang"  > 
@@ -55,6 +64,14 @@
         <div class="form-group col-md-6">
             <label for="validationDefault01" class="form-label">Definisi Penyebut</label>
             <input type="text" class="form-control" name="definisi_penyebut"  > 
+        </div>
+
+        <div id="checklist-questions" class="form-group col-md-12" style="display: none;">
+            <label class="form-label">Pertanyaan Checklist</label>
+            <div id="questions-container">
+                <!-- Pertanyaan akan ditambahkan di sini -->
+            </div>
+            <button type="button" class="btn btn-dark mt-2" id="add-question">Tambah Pertanyaan</button>
         </div>
 
         <div class="col-12 text-end">
@@ -74,36 +91,50 @@
 
 </div>
 
-{{-- <script type="text/javascript">
-    $(document).ready(function (){
-        $('#myForm').validate({
-            rules: {
-                name: {
-                    required : true,
-                },
-                
-            },
-            messages :{
-                name: {
-                    required : 'Please Enter Customer Name',
-                },
 
-            },
-            errorElement : 'span', 
-            errorPlacement: function (error,element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight : function(element, errorClass, validClass){
-                $(element).addClass('is-invalid');
-            },
-            unhighlight : function(element, errorClass, validClass){
-                $(element).removeClass('is-invalid');
-            },
+ <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const calculationType = document.getElementById('calculation_type');
+        const checklistQuestions = document.getElementById('checklist-questions');
+        const questionsContainer = document.getElementById('questions-container');
+        const addQuestionBtn = document.getElementById('add-question');
+        const formulaInputs = document.querySelectorAll('input[name="definisi_pembilang"], input[name="definisi_penyebut"]');
+
+        calculationType.addEventListener('change', function () {
+            const selectedType = this.value;
+
+            // Sembunyikan semua elemen terkait formula dan checklist
+            formulaInputs.forEach(input => input.closest('.form-group').style.display = 'none');
+            checklistQuestions.style.display = 'none';
+
+            // Tampilkan elemen berdasarkan tipe kalkulasi yang dipilih
+            if (selectedType === 'formula') {
+                formulaInputs.forEach(input => input.closest('.form-group').style.display = 'block');
+            } else if (selectedType === 'checklist') {
+                checklistQuestions.style.display = 'block';
+            }
         });
+
+        addQuestionBtn.addEventListener('click', function () {
+            const questionIndex = questionsContainer.children.length;
+            const newQuestion = document.createElement('div');
+            newQuestion.classList.add('input-group', 'mb-2');
+            newQuestion.innerHTML = `
+                <input type="text" class="form-control" name="calculation_meta[questions][${questionIndex}][q]" placeholder="Masukkan pertanyaan">
+                <button type="button" class="btn btn-danger remove-question">Hapus</button>
+            `;
+            questionsContainer.appendChild(newQuestion);
+        });
+
+        questionsContainer.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-question')) {
+                e.target.closest('.input-group').remove();
+            }
+        });
+
+        // Trigger change event on page load to set initial state
+        calculationType.dispatchEvent(new Event('change'));
     });
-    
-</script> --}}
- 
+</script>
 
 @endsection
