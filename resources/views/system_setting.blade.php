@@ -23,7 +23,7 @@
         @csrf
         <div class="form-group">
             <label for="report_lock_status" class="form-label">Status Penguncian Laporan</label>
-            <select name="status" id="report_lock_status" class="form-control">
+            <select name="status" id="report_lock_status" class="form-select">
                 <option value="Unlocked" {{ $setting?->value == 'Unlocked' ? 'selected' : '' }}>Unlocked</option>
                 <option value="Locked" {{ $setting?->value == 'Locked' ? 'selected' : '' }}>Locked</option>
             </select>

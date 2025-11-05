@@ -54,7 +54,7 @@ class LaporanController extends Controller
         }
         $user = Auth::user();
         $year = date('Y');
-        $item = IkkMaster::find($request->ikk_master_id);
+        $item = IkkMaster::findOrFail($request->ikk_master_id);
 
         $fileName = null;
         if ($request->hasFile('file')) {
@@ -67,23 +67,46 @@ class LaporanController extends Controller
             $file->move(public_path('upload/laporan'), $fileName);
         }
 
+        $capaian = 0;
+        $nilaiPembilang = null;
+        $nilaiPenyebut = null;
+        $checklistAnswers = null;
+
+        switch ($item->calculation_type) {
+            case 'formula':
+                $nilaiPembilang = $request->nilai_pembilang;
+                $nilaiPenyebut = $request->nilai_penyebut;
+                $capaian = $nilaiPenyebut != 0 ? ($nilaiPembilang / $nilaiPenyebut) * 100 : 0;
+                break;
+            case 'checklist':
+                $checklistAnswers = $request->checklist;
+                $yesCount = count(array_filter($checklistAnswers, fn($val) => $val == 1));
+                $capaian = $yesCount;
+                break;
+            case 'direct_input':
+                $capaian = $request->capaian;
+                break;
+        }
+
         $report = IkkReport::create([
             'ikk_master_id' => $request->ikk_master_id,
             'user_id' => $user->id,
             'ikk_output' => $request->ikk_output,
             'year' => $year,
-            'nilai_pembilang' => $request->nilai_pembilang,
-            'nilai_penyebut' => $request->nilai_penyebut,
-            'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
+            'nilai_pembilang' => $nilaiPembilang,
+            'nilai_penyebut' => $nilaiPenyebut,
+            'capaian' => $capaian,
             'file' => $fileName,
-            'status' => 'Dikirim'
+            'status' => 'Dikirim',
+            'input_data' => $item->calculation_type === 'checklist' ? json_encode($checklistAnswers) : null
         ]);
 
         $dataSnapshot = $report->toArray();
         $dataSnapshot['ikk_output'] = $request->ikk_output;
-        $dataSnapshot['nilai_pembilang'] = $request->nilai_pembilang;
-        $dataSnapshot['nilai_penyebut'] = $request->nilai_penyebut;
-        $dataSnapshot['capaian'] = $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0;
+        $dataSnapshot['nilai_pembilang'] = $nilaiPembilang;
+        $dataSnapshot['nilai_penyebut'] = $nilaiPenyebut;
+        $dataSnapshot['capaian'] = $capaian;
+        $dataSnapshot['input_data'] = $item->calculation_type === 'checklist' ? json_encode($checklistAnswers) : null;
 
         ReportHistory::create([
             'ikk_report_id' => $report->id,
@@ -121,40 +144,60 @@ class LaporanController extends Controller
         $user = Auth::user();
         $year = date('Y');
 
+        $item = $report->ikkMaster;
+        $capaian = 0;
+        $nilaiPembilang = null;
+        $nilaiPenyebut = null;
+        $checklistAnswers = null;
+
+        switch ($item->calculation_type) {
+            case 'formula':
+                $nilaiPembilang = $request->nilai_pembilang;
+                $nilaiPenyebut = $request->nilai_penyebut;
+                $capaian = $nilaiPenyebut != 0 ? ($nilaiPembilang / $nilaiPenyebut) * 100 : 0;
+                break;
+            case 'checklist':
+                $checklistAnswers = $request->checklist;
+                $yesCount = count(array_filter($checklistAnswers, fn($val) => $val == 1));
+                $capaian = $yesCount;
+                break;
+            case 'direct_input':
+                $capaian = $request->capaian;
+                break;
+        }
+
         $report->update([
             'ikk_master_id' => $report->ikk_master_id,
             'user_id' => $user->id,
             'ikk_output' => $request->ikk_output,
             'year' => $year,
-            'nilai_pembilang' => $request->nilai_pembilang,
-            'nilai_penyebut' => $request->nilai_penyebut,
-            'capaian' => $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0,
+            'nilai_pembilang' => $nilaiPembilang,
+            'nilai_penyebut' => $nilaiPenyebut,
+            'capaian' => $capaian,
+            'input_data' => $item->calculation_type === 'checklist' ? json_encode($checklistAnswers) : null,
             'status' => 'Dikirim Ulang'
         ]);
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            // 2. Buat nama file yang unik (contoh: 178456982.pdf)
             $fileName = $report->ikkMaster->matter->category_id . '.' . $report->ikkMaster->matter->kode_urusan . '.' . $report->ikkMaster->urutan . '_' . $user->agency->name . '_' . $year . '.' . $file->getClientOriginalExtension();
 
-            // 3. Pindahkan file ke public/upload/laporan
             $file->move(public_path('upload/laporan'), $fileName);
 
-            // Hapus file lama jika ada
             if ($report->file && file_exists(public_path('upload/laporan/' . $report->file))) {
                 unlink(public_path('upload/laporan/' . $report->file));
             }
 
-            // Update nama file di database
             $report->update(['file' => $fileName]);
         }
 
         $dataSnapshot = $report->toArray();
         $dataSnapshot['ikk_output'] = $request->ikk_output;
-        $dataSnapshot['nilai_pembilang'] = $request->nilai_pembilang;
-        $dataSnapshot['nilai_penyebut'] = $request->nilai_penyebut;
-        $dataSnapshot['capaian'] = $request->nilai_penyebut != 0 ? ($request->nilai_pembilang / $request->nilai_penyebut) * 100 : 0;
+        $dataSnapshot['nilai_pembilang'] = $nilaiPembilang;
+        $dataSnapshot['nilai_penyebut'] = $nilaiPenyebut;
+        $dataSnapshot['capaian'] = $capaian;
+        $dataSnapshot['input_data'] = $item->calculation_type === 'checklist' ? json_encode($checklistAnswers) : null;
 
         ReportHistory::create([
             'ikk_report_id' => $report->id,

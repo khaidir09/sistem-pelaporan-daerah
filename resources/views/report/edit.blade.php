@@ -59,21 +59,8 @@
             @enderror
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="nilai_pembilang" class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
-            <input type="number" class="form-control" name="nilai_pembilang" value="{{ (float)$report->nilai_pembilang }}"> 
-            @error('nilai_pembilang')
-                <p class="text-danger">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="form-group col-md-6">
-            <label for="nilai_penyebut" class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
-            <input type="number" class="form-control" name="nilai_penyebut" value="{{ (float)$report->nilai_penyebut }}"> 
-            @error('nilai_penyebut')
-                <p class="text-danger">{{ $message }}</p>
-            @enderror
-        </div>
+        <!-- Dynamic calculation inputs will be injected here -->
+        <div id="calculation-inputs" class="row"></div>
 
         <div class="form-group col-md-12">
             <label for="file" class="form-label">File Bukti</label>
@@ -124,5 +111,56 @@
 
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const report = @json($report);
+        const item = @json($report->ikkMaster);
+        const container = document.getElementById('calculation-inputs');
+        
+        container.innerHTML = '';
+
+        if (item.calculation_type === 'formula') {
+            container.innerHTML = `
+                <div class="form-group col-md-6 mt-3">
+                    <label for="nilai_pembilang" class="form-label">${item.definisi_pembilang}</label>
+                    <input type="number" class="form-control" name="nilai_pembilang" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="${parseFloat(report.nilai_pembilang) || ''}">
+                </div>
+                <div class="form-group col-md-6 mt-3">
+                    <label for="nilai_penyebut" class="form-label">${item.definisi_penyebut}</label>
+                    <input type="number" class="form-control" name="nilai_penyebut" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="${parseFloat(report.nilai_penyebut) || ''}">
+                </div>
+            `;
+        } else if (item.calculation_type === 'checklist') {
+            const meta = JSON.parse(item.calculation_meta);
+            const answers = JSON.parse(report.checklist_answers || '[]');
+            if (meta.questions) {
+                meta.questions.forEach((question, index) => {
+                    const isChecked = answers[index] == 1;
+                    const questionDiv = document.createElement('div');
+                    questionDiv.classList.add('form-group', 'col-md-3', 'mt-3');
+                    questionDiv.innerHTML = `
+                        <label class="form-label">${question.q}</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="checklist[${index}]" id="checklist_yes_${index}" value="1" ${isChecked ? 'checked' : ''}>
+                            <label class="form-check-label" for="checklist_yes_${index}">Ya</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="checklist[${index}]" id="checklist_no_${index}" value="0" ${!isChecked ? 'checked' : ''}>
+                            <label class="form-check-label" for="checklist_no_${index}">Tidak</label>
+                        </div>
+                    `;
+                    container.appendChild(questionDiv);
+                });
+            }
+        } else { // direct_input
+            container.innerHTML = `
+                <div class="form-group col-md-6 mt-3">
+                    <label for="capaian" class="form-label">Capaian</label>
+                    <input type="number" class="form-control" name="capaian" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="${parseFloat(report.capaian) || ''}">
+                </div>
+            `;
+        }
+    });
+</script>
 
 @endsection

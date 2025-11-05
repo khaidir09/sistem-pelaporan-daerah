@@ -74,21 +74,37 @@
                             <textarea class="form-control" id="ikk_output" rows="5" disabled readonly>{!! $report->ikk_output !!}</textarea>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
-                            <input type="text" class="form-control" value="{{ (float)$report->nilai_pembilang }}" disabled readonly>
-                        </div>
+                        @if ($report->ikkMaster->calculation_type == 'formula')
+                            <div class="form-group mb-3">
+                                <label class="form-label">{{ $report->ikkMaster->definisi_pembilang }}</label>
+                                <input type="text" class="form-control" value="{{ (float)$report->nilai_pembilang }}" disabled readonly>
+                            </div>
 
-                        <div class="form-group mb-3">
-                            <label class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
-                            <input type="text" class="form-control" value="{{ (float)$report->nilai_penyebut }}" disabled readonly>
-                        </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">{{ $report->ikkMaster->definisi_penyebut }}</label>
+                                <input type="text" class="form-control" value="{{ (float)$report->nilai_penyebut }}" disabled readonly>
+                            </div>
+                        @elseif ($report->ikkMaster->calculation_type == 'checklist')
+                            @php
+                                $meta = json_decode($report->ikkMaster->calculation_meta, true);
+                                $answers = json_decode($report->input_data, true) ?? [];
+                            @endphp
+                            @if (isset($meta['questions']))
+                                @foreach ($meta['questions'] as $index => $question)
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">{{ $question['q'] }}</label>
+                                        <input type="text" class="form-control" value="{{ isset($answers[$index]) && $answers[$index] == 1 ? 'Ya' : 'Tidak' }}" disabled readonly>
+                                    </div>
+                                @endforeach
+                            @endif
+                        @elseif ($report->ikkMaster->calculation_type == 'direct_input')
+                            {{-- Untuk direct_input, hanya capaian yang ditampilkan, jadi tidak perlu field tambahan di sini --}}
+                        @endif
 
                         <div class="form-group">
                             <label for="capaian" class="form-label">Capaian</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" value="{{ (float)$report->capaian }}" disabled readonly>
-                                <span class="input-group-text">%</span>
                             </div>
                         </div>
                     </div>

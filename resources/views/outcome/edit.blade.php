@@ -49,7 +49,7 @@
 
         <div class="form-group col-md-12">
             <label for="calculation_type" class="form-label">Tipe Kalkulasi</label>
-            <select name="calculation_type" id="calculation_type" class="form-control">
+            <select name="calculation_type" id="calculation_type" class="form-select">
                 <option value="formula" {{ $ikkMaster->calculation_type === 'formula' ? 'selected' : '' }}>Formula</option>
                 <option value="checklist" {{ $ikkMaster->calculation_type === 'checklist' ? 'selected' : '' }}>Checklist</option>
                 <option value="direct_input" {{ $ikkMaster->calculation_type === 'direct_input' ? 'selected' : '' }}>Input Langsung</option>

@@ -86,7 +86,7 @@ class OutcomeController extends Controller
 
     public function destroy($id)
     {
-        Outcome::find($id)->delete();
+        IkkMaster::find($id)->delete();
 
         $notification = array(
             'message' => 'Outcome berhasil dihapus',

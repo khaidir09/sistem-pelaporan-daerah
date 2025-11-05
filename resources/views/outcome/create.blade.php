@@ -29,7 +29,7 @@
 
         <div class="form-group col-md-6">
             <label for="matter_id" class="form-label">Pilih Urusan</label>
-            <select name="matter_id" id="matter_id" class="form-control">
+            <select name="matter_id" id="matter_id" class="form-select">
                 <option value="" selected>-- Pilih Urusan --</option>
                 @foreach ($matters as $matter)
                     <option value="{{ $matter->id }}">{{ $matter->name }}</option>
@@ -49,7 +49,7 @@
 
         <div class="form-group col-md-12">
             <label for="calculation_type" class="form-label">Tipe Kalkulasi</label>
-            <select name="calculation_type" id="calculation_type" class="form-control">
+            <select name="calculation_type" id="calculation_type" class="form-select">
                 <option value="formula">Formula</option>
                 <option value="checklist">Checklist</option>
                 <option value="direct_input">Input Langsung</option>
