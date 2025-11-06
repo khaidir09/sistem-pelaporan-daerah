@@ -38,8 +38,8 @@
         @csrf
         <input type="hidden" name="ikk_master_id" value="{{ $item->id }}">
         <div class="form-group col-md-12">
-            <label for="ikk_output" class="form-label">IKK Output</label>
-            <textarea class="form-control" name="ikk_output" id="ikk_output" cols="30" rows="5">{{ old('ikk_output') }}</textarea>
+            <label for="ikk_output" class="form-label">IKK Output <span class="text-danger">*</span></label>
+            <textarea class="form-control" name="ikk_output" id="ikk_output" cols="30" rows="5" required>{{ old('ikk_output') }}</textarea>
             @error('ikk_output')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
@@ -49,7 +49,7 @@
         <div id="calculation-inputs" class="row"></div>
 
         <div class="form-group col-md-12">
-            <label for="file" class="form-label">File Bukti</label>
+            <label for="file" class="form-label">File Bukti <span class="text-danger">*</span></label>
             <input class="form-control" type="file" name="file" id="file">
             @error('file')
                 <p class="text-danger">{{ $message }}</p>
@@ -86,14 +86,14 @@
         if (item.calculation_type === 'formula') {
             container.innerHTML = `
                 <div class="form-group col-md-6 mt-3">
-                    <label for="nilai_pembilang" class="form-label">${item.definisi_pembilang}</label>
+                    <label for="nilai_pembilang" class="form-label">${item.definisi_pembilang} <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" name="nilai_pembilang" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_pembilang') }}">
                     @error('nilai_pembilang')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group col-md-6 mt-3">
-                    <label for="nilai_penyebut" class="form-label">${item.definisi_penyebut}</label>
+                    <label for="nilai_penyebut" class="form-label">${item.definisi_penyebut} <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" name="nilai_penyebut" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('nilai_penyebut') }}">
                     @error('nilai_penyebut')
                         <p class="text-danger">{{ $message }}</p>
@@ -123,7 +123,7 @@
         } else { // direct_input
             container.innerHTML = `
                 <div class="form-group col-md-6 mt-3">
-                    <label for="capaian" class="form-label">Capaian</label>
+                    <label for="capaian" class="form-label">Capaian <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" name="capaian" placeholder="Jika ribuan, masukkan angka tanpa tanda pemisah titik" value="{{ old('capaian') }}">
                     @error('capaian')
                         <p class="text-danger">{{ $message }}</p>
