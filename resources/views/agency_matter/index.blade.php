@@ -4,20 +4,71 @@
 <div class="content">
 
     <!-- Start Content-->
-    <div class="container-fluid">
+    <div class="container-xxl">
 
-        <!-- start page title -->
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="flex-grow-1">
+                <h4 class="fs-18 fw-semibold m-0">SKPD & Urusan</h4>
+            </div>
+
+            <div class="text-end">
+                <ol class="breadcrumb m-0 py-0">
+                     <a href="{{ route('outcome.create') }}" class="btn btn-secondary">Tambah</a>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Datatables  -->
         <div class="row">
             <div class="col-12">
-                <div class="page-title-box">
-                    <h4 class="page-title">Agency & Matter</h4>
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered dt-responsive table-responsive dt-nowrap">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>SKPD</th>
+                                <th>Urusan</th>
+                                <th>Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($agencyMatter as $key=> $item) 
+                            @php
+                                $i = 1;
+                            @endphp
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td>{{ $item->agency->name}}</td>
+                                    <td>{{ $item->matter->name }}</td>
+                                    <td>
+                                        <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+                                        <a href="{{ route('outcome.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
+                                    </td> 
+                                </tr>
+                                @endforeach 
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <!-- end page title -->
 
-    </div> <!-- container -->
-
+    </div> <!-- container-fluid -->
 </div> <!-- content -->
-
 @endsection
+
+@push('scripts')
+    <script>
+        $("#datatable").dataTable({
+            "columnDefs": [{
+                "sortable": false,
+                "targets": [3]
+            }],
+        });
+    </script>
+@endpush

@@ -20,90 +20,97 @@
 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+        <style>
+            .page-login {
+                align-items: center;
+                display: flex;
+                min-height: 100vh;
+            }
+            .account-page-bg {
+                background: url("{{ asset('backend/assets/images/background.jpg')}}");
+                background-size: cover;
+                margin: 0;
+                padding: 0;
+            }
+            .bg-footer {
+                background-image: linear-gradient(to right, blue , orange);
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+
     </head>
 
-    <body class="bg-white">
+    <body class="account-page-bg">
         <!-- Begin page -->
-        <div class="account-page">
-            <div class="container-fluid p-0">
-    <div class="row align-items-center g-0">
-        <div class="col-xl-5">
-            <div class="row">
-                <div class="col-md-7 mx-auto">
-                    <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
-                        <div class="mb-4 p-0">
-                            <a href="index.html" class="auth-logo">
-                                <img src="{{ asset('backend/assets/images/logo.png')}}" alt="logo-dark" class="mx-auto" height="54" />
-                            </a>
-                        </div>
-
-                        <div class="pt-0">
-    <form  method="POST" action="{{ route('login') }}" class="my-4">
-        @csrf
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
-        <div class="form-group mb-3">
-            <label for="emailaddress" class="form-label">Alamat Email</label>
-            <input class="form-control" name="email" type="email" id="email" required="" placeholder="Masukkan alamat email">
-            @error('email')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="password" class="form-label">Kata Sandi</label>
-            <input class="form-control" name="password" type="password" required="" id="password" placeholder="Masukkan kata sandi">
-            @error('password')
-            <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-
-        {{-- <div class="form-group d-flex mb-3"> 
-            <div class="col-sm-12 text-end">
-                <a class='text-muted fs-14' href='{{ route('password.request') }}'>Lupa kata sandi?</a>                             
-            </div>
-        </div> --}}
         
-        <div class="form-group mb-0 row">
-            <div class="col-12">
-                <div class="d-grid">
-                    <button class="btn btn-primary" type="submit"> Masuk </button>
-                </div>
-            </div>
-        </div>
-    </form>
-                            {{-- <div class="text-center text-muted mb-4">
-                                <p class="mb-0">Belum punya akun ?<a class='text-primary ms-2 fw-medium' href='{{ route('register') }}'>Daftar</a></p>
-                            </div> --}}
+        <div class="page-login">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 px-5">
+                        <div class="card border border-primary shadow-lg">
+                            <div class="card-body p-4">
+                                <h1>Masuk</h1>
+                                <form  method="POST" action="{{ route('login') }}" class="mt-3">
+                                    @csrf
 
-                           
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
 
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" name="email" type="email" id="email" required="" placeholder="Username">
+                                        <label for="floatingInput">Username</label>
+                                        @error('email')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" name="password" type="password" required="" id="password" placeholder="Password">
+                                        <label for="floatingInput">Password</label>
+                                        @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Remember me & Forgot password --}}
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Ingat Saya
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('password.request') }}">Lupa password?</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary w-100" type="submit"> Log in </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 d-lg-block d-none">
+                        <div class="text-justify">
+                            <h1 class="display-4 mb-3">Selamat Datang!</h1>
+                            <p>Selamat Datang di aplikasi <strong>SePeDa</strong> (Sistem Pelaporan Daerah) Pemerintah Daerah Kabupaten Hulu Sungai Utara.</h1>
+                            <p>Untuk memulai silahkan isikan username dan password anda, kemudian klik tombol Log in untuk masuk ke dalam aplikasi.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-xl-7">
-            <div class="account-page-bg p-md-5 p-4">
-                <div class="text-center">
-                    <h3 class="text-dark mb-3 pera-title">Sistem Pelaporan Daerah (SePeDa)</h3>
-                    <div class="auth-image">
-                        <img src="{{ asset('backend/assets/images/authentication.svg')}}" class="mx-auto img-fluid"  alt="images">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
             </div>
         </div>
         
         <!-- END wrapper -->
+        <footer class="bg-footer text-white text-center py-2">
+            <p class="mb-0">SePeDa &copy 2025 - Pemerintah Daerah Kabupaten Hulu Sungai Utara</p>
+        </footer>
 
         <!-- Vendor -->
         <script src="{{ asset('backend/assets/libs/jquery/jquery.min.js')}}"></script>
@@ -141,4 +148,5 @@
          @endif 
         </script>
     </body>
+
 </html>
