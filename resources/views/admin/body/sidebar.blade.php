@@ -65,6 +65,9 @@
                                 <li class="{{ Request::is('master/skpd*') ? 'active' : '' }}">
                                     <a href="{{ route('skpd.index') }}" class="tp-link">SKPD</a>
                                 </li>
+                                <li class="{{ Request::is('master/agency-matter*') ? 'active' : '' }}">
+                                    <a href="{{ route('agency-matter.index') }}" class="tp-link">Agency & Matter</a>
+                                </li>
                                 <li class="{{ Request::is('master/pengguna*') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('all.admin') }}" class="tp-link">Manajemen Pengguna</a>
                                 </li>

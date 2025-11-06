@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\LaporanController;
 use App\Http\Controllers\Backend\OutcomeController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\SystemSettingController;
+use App\Http\Controllers\Backend\AgencyMatterController;
 use App\Http\Controllers\Pengawas\LaporanPengawasController;
 
 Route::get('/', function () {
@@ -72,6 +73,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/master/edit/skpd/{id}', 'edit')->name('skpd.edit');
         Route::post('/master/skpd/update/{id}', 'update')->name('skpd.update');
         Route::get('/master/skpd/delete/{id}', 'destroy')->name('skpd.destroy');
+    });
+
+    Route::controller(AgencyMatterController::class)->group(function () {
+        Route::get('/master/agency-matter', 'index')->name('agency-matter.index');
     });
 
     Route::controller(LaporanController::class)->group(function () {
