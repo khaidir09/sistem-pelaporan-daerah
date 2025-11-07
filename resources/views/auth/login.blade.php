@@ -27,16 +27,42 @@
                 min-height: 100vh;
             }
             .account-page-bg {
-                background: url("{{ asset('backend/assets/images/background.jpg')}}");
+                background: url("{{ asset('backend/assets/images/background.jpg')}}") center;
                 background-size: cover;
                 margin: 0;
                 padding: 0;
             }
             .bg-footer {
-                background-image: linear-gradient(to right, blue , orange);
+                background-image: linear-gradient(to right, #0d2882 , #fbab12);
                 position: absolute;
                 bottom: 0;
                 width: 100%;
+            }
+            .border-primary {
+                border: 2px solid !important;
+                border-radius: 12px;
+                border-top-color: #0d2882 !important;
+                border-left-color: #0d2882 !important;
+                border-right-color: #fbab12 !important;
+                border-bottom-color: #fbab12 !important;
+            }
+            .btn-primary {
+                background-image: linear-gradient(to right, #0d2882 , #fbab12);
+                border: none;
+                border-radius: 50px;
+            }
+            .btn-primary:hover {
+                background-image: linear-gradient(to right, #fbab12 , #0d2882);
+                border: none;
+            }
+            h1, p {
+                color: #000;
+            }
+            h2 {
+                color: #0d2882;
+            }
+            .form-control {
+                border-radius: 24px;
             }
         </style>
 
@@ -44,14 +70,17 @@
 
     <body class="account-page-bg">
         <!-- Begin page -->
-        
         <div class="page-login">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 px-5">
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('backend/assets/images/sepeda.png') }}" alt="" height="80px" class="block w-100 d-md-none">
+                            <img src="{{ asset('backend/assets/images/sepeda.png') }}" alt="" height="80px" class="d-none d-md-block mx-auto">
+                        </div>
                         <div class="card border border-primary shadow-lg">
                             <div class="card-body p-4">
-                                <h1>Masuk</h1>
+                                <h2>Masuk</h2>
                                 <form  method="POST" action="{{ route('login') }}" class="mt-3">
                                     @csrf
 
@@ -61,17 +90,15 @@
                                         </div>
                                     @endif
 
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
                                         <input class="form-control" name="email" type="email" id="email" required="" placeholder="Username">
-                                        <label for="floatingInput">Username</label>
                                         @error('email')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
-                                    <div class="form-floating mb-3">
+                                    <div class="form-group mb-3">
                                         <input class="form-control" name="password" type="password" required="" id="password" placeholder="Password">
-                                        <label for="floatingInput">Password</label>
                                         @error('password')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -97,6 +124,10 @@
                     </div>
 
                     <div class="col-lg-6 d-lg-block d-none">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{{ asset('backend/assets/images/logo-setda.png') }}" alt="" height="50px" class="me-2">
+                            <img src="{{ asset('backend/assets/images/logo-bangkit.png') }}" alt="" height="50px">
+                        </div>
                         <div class="text-justify">
                             <h1 class="display-4 mb-3">Selamat Datang!</h1>
                             <p>Selamat Datang di aplikasi <strong>SePeDa</strong> (Sistem Pelaporan Daerah) Pemerintah Daerah Kabupaten Hulu Sungai Utara.</h1>
@@ -109,7 +140,8 @@
         
         <!-- END wrapper -->
         <footer class="bg-footer text-white text-center py-2">
-            <p class="mb-0">SePeDa &copy 2025 - Pemerintah Daerah Kabupaten Hulu Sungai Utara</p>
+
+            <p class="mb-0 text-white">SePeDa &copy; <script>document.write(new Date().getFullYear())</script> - Pemerintah Daerah Kabupaten Hulu Sungai Utara</p>
         </footer>
 
         <!-- Vendor -->
