@@ -63,7 +63,7 @@
             {{-- Kolom Kiri: Detail Laporan --}}
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header bg-primary text-white">
                         <h5 class="card-title mb-0">{{ $report->ikkMaster->ikk_outcome }}</h5>
                     </div>
 
@@ -114,7 +114,7 @@
             {{-- Kolom Kanan: Preview File PDF --}}
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header bg-secondary text-white">
+                    <div class="card-header bg-primary text-white">
                         <h5 class="card-title mb-0">Data Dukung</h5>
                     </div>
                     <div class="card-body">
@@ -145,7 +145,7 @@
             <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Klik tombol Minta Perbaikan, lalu tuliskan catatan perbaikan di sini..." rows="1" disabled></textarea>
             
             {{-- Tombol Aksi --}}
-            <button id="requestRevisionBtn" type="submit" name="action" value="Revisi" class="btn btn-warning flex-shrink-0">
+            <button id="requestRevisionBtn" type="submit" name="action" value="Revisi" class="btn btn-dark flex-shrink-0">
                 🔄 Minta Perbaikan
             </button>
             <button id="approveBtn" type="submit" name="action" value="Setuju" class="btn btn-success flex-shrink-0">

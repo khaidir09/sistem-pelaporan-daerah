@@ -59,10 +59,10 @@
                                             <td>
                                                 @if (!$report)
                                                     {{-- Tombol "Buat" tetap menggunakan ID dari IkkMaster --}}
-                                                    <a href="{{ route('laporan.create', $item->id) }}" class="btn btn-secondary btn-sm">Buat</a>
+                                                    <a href="{{ route('laporan.create', $item->id) }}" class="btn btn-primary btn-sm">Buat</a>
                                                 @else
                                                     {{-- 2. Tombol "Edit" sekarang menggunakan ID dari laporan yang ditemukan ($report->id) --}}
-                                                    <a href="{{ route('laporan.edit', $report->id) }}" class="btn btn-success btn-sm">Edit</a>
+                                                    <a href="{{ route('laporan.edit', $report->id) }}" class="btn btn-dark btn-sm">Edit</a>
                                                 @endif
                                             </td>
                                         </tr>

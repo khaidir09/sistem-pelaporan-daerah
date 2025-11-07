@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="{{ route('add.admin') }}" class="btn btn-secondary">Tambah Pengguna</a>
+                     <a href="{{ route('add.admin') }}" class="btn btn-primary">Tambah Pengguna</a>
                 </ol>
             </div>
         </div>
@@ -50,8 +50,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                <a href="{{ route('edit.admin',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
-                                <a href="{{ route('delete.admin',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
+                                <a href="{{ route('edit.admin',$item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
+                                <a href="{{ route('delete.admin',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
                                     </td> 
                                 </tr>
                                 @endforeach 

@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#standard-modal">Tambah SKPD</a>
+                     <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">Tambah SKPD</a>
                 </ol>
             </div>
         </div>
@@ -41,7 +41,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ count($item->matters) }}</td>
                                     <td>
-                                        <a href="{{ route('skpd.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>
+                                        <a href="{{ route('skpd.edit', $item->id) }}" class="btn btn-dark btn-sm">Edit</a>
                                         <a href="{{ route('skpd.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>
                                     </td>
                                 </tr>

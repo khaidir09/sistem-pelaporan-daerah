@@ -5,25 +5,14 @@
         <div id="sidebar-menu">
 
             <div class="logo-box">
-                <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="24">
-                    </span>
-                </a>
                 <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="22">
-                    </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-sepeda.png')}}" alt="" height="24">
+                        <img src="{{ asset('backend/assets/images/sepeda.png')}}" alt="" height="48">
                     </span>
                 </a>
             </div>
 
-            <ul id="side-menu">
+            <ul id="side-menu" class="mt-2">
             
                 <li class="menu-title">Menu</li>
 
@@ -64,9 +53,6 @@
                                 </li>
                                 <li class="{{ Request::is('master/skpd*') ? 'active' : '' }}">
                                     <a href="{{ route('skpd.index') }}" class="tp-link">SKPD</a>
-                                </li>
-                                <li class="{{ Request::is('master/agency-matter*') ? 'active' : '' }}">
-                                    <a href="{{ route('agency-matter.index') }}" class="tp-link">Agency & Matter</a>
                                 </li>
                                 <li class="{{ Request::is('master/pengguna*') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('all.admin') }}" class="tp-link">Manajemen Pengguna</a>

@@ -13,7 +13,7 @@
 
             <div class="text-end">
                 <ol class="breadcrumb m-0 py-0">
-                     <a href="{{ route('outcome.create') }}" class="btn btn-secondary">Tambah Outcome</a>
+                     <a href="{{ route('outcome.create') }}" class="btn btn-primary">Tambah Outcome</a>
                 </ol>
             </div>
         </div>
@@ -47,7 +47,7 @@
                                     <td>{{ $item->definisi_pembilang }}</td>
                                     <td>{{ $item->definisi_penyebut }}</td>
                                     <td>
-                                        <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+                                        <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
                                         <a href="{{ route('outcome.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
                                     </td> 
                                 </tr>

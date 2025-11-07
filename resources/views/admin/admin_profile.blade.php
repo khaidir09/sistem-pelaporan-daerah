@@ -124,7 +124,7 @@
             <label class="form-label">Password Lama</label>
             <div class="col-lg-12 col-xl-12">
       <input class="form-control @error('old_password') is-invalid          
-      @enderror" name="old_password" id="old_password" type="password" placeholder="Old Password">
+      @enderror" name="old_password" id="old_password" type="password" placeholder="Password Lama">
       @error('old_password')
           <span class="text-danger">{{ $message }}</span>
       @enderror
@@ -134,7 +134,7 @@
             <label class="form-label">Password Baru</label>
             <div class="col-lg-12 col-xl-12">
   <input class="form-control @error('new_password') is-invalid          
-                @enderror" name="new_password" id="new_password" type="password" placeholder="New Password">
+                @enderror" name="new_password" id="new_password" type="password" placeholder="Password Baru">
                 @error('new_password')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -143,14 +143,14 @@
         <div class="form-group mb-3 row">
             <label class="form-label">Konfirmasi Password</label>
             <div class="col-lg-12 col-xl-12">
-                <input class="form-control" name="new_password_confirmation" type="password" id="new_password_confirmation" placeholder="New Password Confirmation "> 
+                <input class="form-control" name="new_password_confirmation" type="password" id="new_password_confirmation" placeholder="Konfirmasi Password"> 
                  </div>
         </div>
 
         <div class="form-group row">
             <div class="col-lg-12 col-xl-12">
                 <button type="submit" class="btn btn-primary">Ganti Password</button>
-                <button type="button" class="btn btn-danger">Batal</button>
+                <button type="button" class="btn btn-dark">Batal</button>
             </div>
         </div>
     </form>

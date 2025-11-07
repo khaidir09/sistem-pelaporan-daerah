@@ -28,6 +28,35 @@
 
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+        <style>
+            .bg-admin {
+                background: url("{{ asset('backend/assets/images/background.jpg')}}") center center no-repeat;
+                min-height: 100vh;
+                background-size: cover;
+            }
+            .btn-primary {
+                background-color: #0d2882;
+                border: none;
+            }
+            .btn-primary:hover {
+                background-color: #0a1f66;
+                border: none;
+            }
+            .btn-dark {
+                background-color: #fbab12;
+                border: none;
+                color: #000;
+            }
+            .btn-dark:hover {
+                background-color: #e09b0c;
+                border: none;
+                color: #000;
+            }
+            .bg-primary {
+                background-color: #0d2882 !important;
+            }
+        </style>
+
         @stack('style')
 
     </head>
@@ -51,7 +80,7 @@
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
 
-    <div class="content-page">
+    <div class="content-page bg-admin">
     
      @yield('admin')          
 

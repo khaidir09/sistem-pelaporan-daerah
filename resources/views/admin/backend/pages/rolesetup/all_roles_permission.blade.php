@@ -48,7 +48,7 @@
                     @endforeach
                     </td> 
                 <td style="width: 120px">
-            <a href="{{ route('admin.edit.roles',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+            <a href="{{ route('admin.edit.roles',$item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
             <a href="{{ route('admin.delete.roles',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
                 </td> 
             </tr>

@@ -44,7 +44,7 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->group_name }}</td> 
                 <td>
-            <a href="{{ route('edit.permission',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+            <a href="{{ route('edit.permission',$item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
             <a href="{{ route('delete.permission',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
                 </td> 
             </tr>

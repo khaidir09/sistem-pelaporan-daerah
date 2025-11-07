@@ -113,7 +113,7 @@
                                     </td>
                                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                     <td>
-                                        <a href="{{ route('laporan-pengawas.show', $item->id) }}" class="btn btn-secondary btn-sm">Validasi Sekarang</a>
+                                        <a href="{{ route('laporan-pengawas.show', $item->id) }}" class="btn btn-primary btn-sm">Validasi Sekarang</a>
                                     </td> 
                                 </tr>
                                 @endforeach 

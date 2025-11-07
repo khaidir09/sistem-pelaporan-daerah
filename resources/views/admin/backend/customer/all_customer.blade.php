@@ -48,7 +48,7 @@
                 <td>{{ $item->phone }}</td>
                 <td>{{ Str::limit($item->address, 50, '...')  }}</td>
                 <td>
-            <a href="{{ route('edit.customer',$item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+            <a href="{{ route('edit.customer',$item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
             <a href="{{ route('delete.customer',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Delete</a>    
                 </td> 
             </tr>

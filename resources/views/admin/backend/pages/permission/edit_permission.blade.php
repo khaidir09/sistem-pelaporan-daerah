@@ -57,7 +57,7 @@
         </div> 
             
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Save Change</button>
+            <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
         </div>
     </form>
 </div> <!-- end card-body -->

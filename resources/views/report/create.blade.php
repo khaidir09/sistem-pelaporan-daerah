@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary text-white">
                         <h5 class="card-title mb-0">{{ $item->ikk_outcome }}</h5>
                     </div><!-- end card header -->
 
