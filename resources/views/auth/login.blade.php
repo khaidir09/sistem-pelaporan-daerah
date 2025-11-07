@@ -96,11 +96,13 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-
-                                    <div class="form-group mb-3">
+                                    <div class="input-group mb-3">
                                         <input class="form-control" name="password" type="password" required="" id="password" placeholder="Password">
+                                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                            <i class="icon-dual" data-feather="eye"></i>
+                                        </span>
                                         @error('password')
-                                        <small class="text-danger">{{ $message }}</small>
+                                            <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
@@ -178,6 +180,25 @@
             break; 
          }
          @endif 
+        </script>
+
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function (e) {
+                const password = document.getElementById('password');
+                const icon = this.querySelector('i');
+                
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Toggle the icon
+                if (type === 'password') {
+                    icon.setAttribute('data-feather', 'eye-off');
+                } else {
+                    icon.setAttribute('data-feather', 'eye');
+                }
+                feather.replace();
+            });
         </script>
     </body>
 
