@@ -27,7 +27,7 @@
                 min-height: 100vh;
             }
             .account-page-bg {
-                background: url("{{ asset('backend/assets/images/background.jpg')}}") center;
+                background: url("{{ asset('backend/assets/images/background.webp')}}") center;
                 background-size: cover;
                 margin: 0;
                 padding: 0;

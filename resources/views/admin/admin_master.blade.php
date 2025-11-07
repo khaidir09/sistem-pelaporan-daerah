@@ -30,7 +30,7 @@
 
         <style>
             .bg-admin {
-                background: url("{{ asset('backend/assets/images/background.jpg')}}") center center no-repeat;
+                background: url("{{ asset('backend/assets/images/background.webp')}}") center no-repeat;
                 min-height: 100vh;
                 background-size: cover;
             }
