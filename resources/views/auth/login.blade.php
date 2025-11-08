@@ -3,10 +3,10 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Login Page </title>
+        <title>Halaman Login </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
-        <meta name="author" content="Zoyothemes"/>
+        <meta name="description" content="SePeDa (Sistem Pelaporan Daerah) data Indikator Kinerja Kunci (IKK) Pemerintah Daerah Kabupaten Hulu Sungai Utara"/>
+        <meta name="author" content="Dewa Kreatif"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
