@@ -133,7 +133,8 @@
                         <div class="text-justify">
                             <h1 class="display-4 mb-3">Selamat Datang!</h1>
                             <p>Selamat Datang di aplikasi <strong>SePeDa</strong> (Sistem Pelaporan Daerah) Pemerintah Daerah Kabupaten Hulu Sungai Utara.</h1>
-                            <p>Untuk memulai silahkan isikan username dan password anda, kemudian klik tombol Log in untuk masuk ke dalam aplikasi.</p>
+                            <p>Portal resmi untuk pelaporan dan monitoring data Indikator Kinerja Kunci (IKK).</p>
+                            <p>Silakan Log in menggunakan akun SKPD, Verifikator, atau Administrator Anda untuk memulai sesi pelaporan dan monitoring kinerja.</p>
                         </div>
                     </div>
                 </div>

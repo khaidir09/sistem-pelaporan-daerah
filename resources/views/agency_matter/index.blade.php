@@ -44,7 +44,7 @@
                                     <td>{{ $item->agency->name}}</td>
                                     <td>{{ $item->matter->name }}</td>
                                     <td>
-                                        <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a>  
+                                        <a href="{{ route('outcome.edit', $item->id) }}" class="btn btn-dark btn-sm">Edit</a>  
                                         <a href="{{ route('outcome.destroy',$item->id) }}" class="btn btn-danger btn-sm" id="delete">Hapus</a>    
                                     </td> 
                                 </tr>
