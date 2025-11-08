@@ -36,11 +36,17 @@
         <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Username <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="username">
+            @error('username')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
           <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Email <span class="text-danger">*</span></label>
             <input type="emal" class="form-control" name="email"  >  
+            @error('email')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
           <div class="col-md-6">

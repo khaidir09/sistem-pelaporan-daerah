@@ -91,8 +91,8 @@
                                     @endif
 
                                     <div class="form-group mb-3">
-                                        <input class="form-control" name="email" type="email" id="email" required="" placeholder="Username">
-                                        @error('email')
+                                        <input class="form-control" name="username" type="text" id="username" required="" placeholder="Username">
+                                        @error('username')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -109,8 +109,8 @@
                                     {{-- Remember me & Forgot password --}}
                                     <div class="d-flex justify-content-between mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                            <label class="form-check-label" for="remember">
                                                 Ingat Saya
                                             </label>
                                         </div>

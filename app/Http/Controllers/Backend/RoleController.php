@@ -246,6 +246,12 @@ class RoleController extends Controller
 
     public function StoreAdmin(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
         $user = new User();
         $user->name = $request->name;
@@ -279,6 +285,10 @@ class RoleController extends Controller
 
     public function UpdateAdmin(Request $request, $id)
     {
+        $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . $id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+        ]);
 
         $user = User::find($id);
         $user->name = $request->name;
