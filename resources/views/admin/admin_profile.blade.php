@@ -61,6 +61,13 @@
                 </div>
 
                 <div class="form-group mb-3 row">
+                    <label class="form-label">Username</label>
+                    <div class="col-lg-12 col-xl-12">
+                        <input class="form-control" type="text" name="username" value="{{ $profileData->username }}">
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 row">
                     <label class="form-label">Email</label>
                     <div class="col-lg-12 col-xl-12">
            <input class="form-control" type="email" name="email" value="{{ $profileData->email }}">
@@ -96,7 +103,7 @@
         </div> 
 
         <div class="col-lg-12 col-xl-12">
-            <button type="submit" class="btn btn-primary">Simpan Perubahan</button> 
+            <button type="submit" class="btn btn-primary">Perbarui Profil</button> 
         </div>
  
     </form>
@@ -149,7 +156,7 @@
 
         <div class="form-group row">
             <div class="col-lg-12 col-xl-12">
-                <button type="submit" class="btn btn-primary">Ganti Password</button>
+                <button type="submit" class="btn btn-primary">Perbarui Password</button>
                 <button type="button" class="btn btn-dark">Batal</button>
             </div>
         </div>

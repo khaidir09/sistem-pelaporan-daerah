@@ -29,22 +29,27 @@
         @csrf
 
         <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Nama</label>
+            <label for="validationDefault01" class="form-label">Nama <span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="name"  >  
         </div>
 
+        <div class="col-md-6">
+            <label for="validationDefault01" class="form-label">Username <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="username">
+        </div>
+
           <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Email</label>
+            <label for="validationDefault01" class="form-label">Email <span class="text-danger">*</span></label>
             <input type="emal" class="form-control" name="email"  >  
         </div>
 
           <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Password</label>
+            <label for="validationDefault01" class="form-label">Password <span class="text-danger">*</span></label>
             <input type="password" class="form-control" name="password"  >  
         </div>
 
           <div class="col-md-6">
-            <label for="validationDefault01" class="form-label">Peran </label>
+            <label for="validationDefault01" class="form-label">Peran <span class="text-danger">*</span> </label>
             <select name="roles" class="form-select" id="example-select">
                 <option value="" selected>Pilih Peran</option>
                  @foreach ($roles as $role) 

@@ -9,67 +9,71 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function AdminLogout(Request $request){
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate(); 
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/login');
     }
     // End Method 
 
-    public function AdminProfile(){
+    public function AdminProfile()
+    {
         $id = Auth::user()->id;
         $profileData = User::find($id);
-        return view('admin.admin_profile',compact('profileData'));
-
+        return view('admin.admin_profile', compact('profileData'));
     }
-     // End Method 
+    // End Method 
 
-     public function ProfileStore(Request $request){
-     $id = Auth::user()->id;
-     $data = User::find($id);
+    public function ProfileStore(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = User::find($id);
 
-     $data->name = $request->name;
-     $data->email = $request->email;
-     $data->phone = $request->phone;
-     $data->address = $request->address;
+        $data->name = $request->name;
+        $data->username = $request->username;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
 
-     $oldPhotoPath = $data->photo;
+        $oldPhotoPath = $data->photo;
 
-     if ($request->hasFile('photo')) {
-       $file = $request->file('photo');
-       $filename = time().'.'.$file ->getClientOriginalExtension();
-       $file->move(public_path('upload/user_images'),$filename);
-       $data->photo = $filename;
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/user_images'), $filename);
+            $data->photo = $filename;
 
-       if ($oldPhotoPath && $oldPhotoPath !== $filename) {
-        $this->deleteOldImage($oldPhotoPath);
-       }            
-     }
+            if ($oldPhotoPath && $oldPhotoPath !== $filename) {
+                $this->deleteOldImage($oldPhotoPath);
+            }
+        }
 
-     $data->save();
+        $data->save();
 
-     $notification = array(
-        'message' => 'Profile Updated Successfully',
-        'alert-type' => 'success'
-     );
+        $notification = array(
+            'message' => 'Profil berhasil diperbarui',
+            'alert-type' => 'success'
+        );
 
-     return redirect()->back()->with($notification);
-
+        return redirect()->back()->with($notification);
     }
-      // End Method
+    // End Method
 
-    private function deleteOldImage(string $oldPhotoPath) : void {
-        $fullPath = public_path('upload/user_images/'.$oldPhotoPath);
+    private function deleteOldImage(string $oldPhotoPath): void
+    {
+        $fullPath = public_path('upload/user_images/' . $oldPhotoPath);
         if (file_exists($fullPath)) {
             unlink($fullPath);
         }
     }
-     // End private Method
+    // End private Method
 
-     public function AdminPasswordUpdate(Request $request){
+    public function AdminPasswordUpdate(Request $request)
+    {
 
         $user = Auth::user();
         $request->validate([
@@ -78,29 +82,28 @@ class AdminController extends Controller
         ]);
 
         if (!Hash::check($request->old_password, $user->password)) {
-            
+
             $notification = array(
-                'message' => 'Old Password Does not Match!',
+                'message' => 'Password lama tidak cocok!',
                 'alert-type' => 'error'
-             ); 
-             return back()->with($notification);
+            );
+            return back()->with($notification);
         }
 
         User::whereId($user->id)->update([
-            'password' => Hash::make($request->new_password) 
+            'password' => Hash::make($request->new_password)
         ]);
 
         Auth::logout();
 
         $notification = array(
-            'message' => 'Password Updated Successfully',
+            'message' => 'Password berhasil diperbarui. Silahkan login kembali.',
             'alert-type' => 'success'
-         ); 
-         return redirect()->route('login')->with($notification); 
+        );
+        return redirect()->route('login')->with($notification);
+    }
+    // End Method
 
-     }
-     // End Method
 
-    
 
 }

@@ -249,6 +249,7 @@ class RoleController extends Controller
 
         $user = new User();
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
@@ -281,8 +282,9 @@ class RoleController extends Controller
 
         $user = User::find($id);
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->email = $request->email;
-        $user->role = 'admin';
+        $user->role = 'user';
         $user->save();
 
         $user->roles()->detach();
@@ -295,7 +297,7 @@ class RoleController extends Controller
         }
 
         $notification = array(
-            'message' => 'New Admin Updated Successfully',
+            'message' => 'Pengguna berhasil diperbarui',
             'alert-type' => 'success'
         );
         return redirect()->route('all.admin')->with($notification);

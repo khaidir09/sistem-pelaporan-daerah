@@ -29,6 +29,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
+                                <th>Username</th>
                                 <th>Email</th> 
                                 <th>Peran</th> 
                                 <th>Aksi</th>
@@ -39,6 +40,7 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->username }}</td>
                                     <td>{{ $item->email }}</td> 
                                     <td> 
                                         @if ($item->agency)

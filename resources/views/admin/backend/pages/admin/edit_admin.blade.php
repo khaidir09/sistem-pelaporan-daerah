@@ -36,6 +36,11 @@
             <input type="text" class="form-control" name="name" value="{{ $admin->name }}"  >  
         </div>
 
+        <div class="col-md-6">
+            <label for="validationDefault01" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" value="{{ $admin->username }}"  >  
+        </div>
+
           <div class="col-md-6">
             <label for="validationDefault01" class="form-label">Email</label>
             <input type="emal" class="form-control" name="email"  value="{{ $admin->email }}"  >  
