@@ -19,9 +19,11 @@ class LaporanController extends Controller
         $ikkMaster = []; // Inisialisasi variabel
 
         if ($user->hasRole('User')) {
-            $ikkMaster = IkkMaster::whereHas('matter.agencies', function ($query) use ($user) {
-                $query->where('agencies.id', $user->agency_id);
-            })->get();
+            $ikkMaster = IkkMaster::with('agencies')
+                ->whereHas('agencies', function ($query) use ($user) {
+                    $query->where('agency_id', $user->agency_id);
+                })
+                ->get();
         } else {
             $ikkMaster = IkkMaster::with('matter.agencies')->get();
         }

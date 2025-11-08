@@ -10,6 +10,6 @@ class Agency extends Model
 
     public function matters()
     {
-        return $this->belongsToMany(Matter::class, 'agency_matter', 'agency_id', 'matter_id');
+        return $this->belongsToMany(IkkMaster::class, 'agency_ikk_master', 'agency_id', 'ikk_master_id');
     }
 }

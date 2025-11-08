@@ -70,11 +70,10 @@ class DashboardController extends Controller
                 $query->where('agencies.id', $user->agency_id);
             })->count();
 
-            $totalIndikator = IkkMaster::whereHas('matter', function ($query) use ($user) {
-                $query->whereHas('agencies', function ($subQuery) use ($user) {
-                    $subQuery->where('agencies.id', $user->agency_id);
-                });
-            })->count();
+            $totalIndikator = IkkMaster::with('agencies')
+                ->whereHas('agencies', function ($query) use ($user) {
+                    $query->where('agency_id', $user->agency_id);
+                })->count();
 
             $reportLockStatus = SystemSetting::where('key', 'report_lock_status')->first();
 

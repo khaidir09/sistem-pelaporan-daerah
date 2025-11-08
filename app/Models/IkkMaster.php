@@ -17,4 +17,9 @@ class IkkMaster extends Model
     {
         return $this->hasMany(IkkReport::class, 'ikk_master_id');
     }
+
+    public function agencies()
+    {
+        return $this->belongsToMany(Agency::class, 'agency_ikk_master', 'ikk_master_id', 'agency_id');
+    }
 }
